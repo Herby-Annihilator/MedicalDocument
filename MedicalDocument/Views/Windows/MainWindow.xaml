@@ -132,6 +132,7 @@
                                 <Trigger Property="Grid.Column" Value="2">
                                     <Setter Property="Orientation" Value="Horizontal"/>
                                     <Setter Property="HorizontalAlignment" Value="Center"/>
+                                    <Setter Property="Margin" Value="0, 5"/>
                                 </Trigger>
                             </Style.Triggers>
                         </Style>
@@ -166,43 +167,103 @@
                         <TextBlock Text="20"/>
                     </StackPanel>
                     <StackPanel Grid.Row="1" Grid.Column="2">
-                        <Button Content="Edit"/>
-                        <Button Content="Clear"/>
+                        <Button>
+                            <Button.Background>
+                                <SolidColorBrush Opacity="0"/>
+                            </Button.Background>
+                            <fa1:ImageAwesome Height="32" Width="32" Icon="Solid_PencilAlt"/>
+                        </Button>
+                        <Button>
+                            <Button.Background>
+                                <SolidColorBrush Opacity="0"/>
+                            </Button.Background>
+                            <fa1:ImageAwesome Height="32" Width="32" Icon="Solid_Broom"/>
+                        </Button>
                     </StackPanel>
 
                     <TextBlock Grid.Row="2" Grid.Column="0" Text="Выписанные"/>
                     <TextBlock Grid.Row="2" Grid.Column="1" Text="25"/>
                     <StackPanel Grid.Row="2" Grid.Column="2">
-                        <Button Content="Edit"/>
-                        <Button Content="Clear"/>
+                        <Button>
+                            <Button.Background>
+                                <SolidColorBrush Opacity="0"/>
+                            </Button.Background>
+                            <fa1:ImageAwesome Height="32" Width="32" Icon="Solid_PencilAlt"/>
+                        </Button>
+                        <Button>
+                            <Button.Background>
+                                <SolidColorBrush Opacity="0"/>
+                            </Button.Background>
+                            <fa1:ImageAwesome Height="32" Width="32" Icon="Solid_Broom"/>
+                        </Button>
                     </StackPanel>
 
                     <TextBlock Grid.Row="3" Grid.Column="0" Text="Переведены в другие отделения"/>
                     <TextBlock Grid.Row="3" Grid.Column="1" Text="25"/>
                     <StackPanel Grid.Row="3" Grid.Column="2">
-                        <Button Content="Edit"/>
-                        <Button Content="Clear"/>
+                        <Button>
+                            <Button.Background>
+                                <SolidColorBrush Opacity="0"/>
+                            </Button.Background>
+                            <fa1:ImageAwesome Height="32" Width="32" Icon="Solid_PencilAlt"/>
+                        </Button>
+                        <Button>
+                            <Button.Background>
+                                <SolidColorBrush Opacity="0"/>
+                            </Button.Background>
+                            <fa1:ImageAwesome Height="32" Width="32" Icon="Solid_Broom"/>
+                        </Button>
                     </StackPanel>
 
                     <TextBlock Grid.Row="4" Grid.Column="0" Text="Переведены в другие стационары"/>
                     <TextBlock Grid.Row="4" Grid.Column="1" Text="25"/>
                     <StackPanel Grid.Row="4" Grid.Column="2">
-                        <Button Content="Edit"/>
-                        <Button Content="Clear"/>
+                        <Button>
+                            <Button.Background>
+                                <SolidColorBrush Opacity="0"/>
+                            </Button.Background>
+                            <fa1:ImageAwesome Height="32" Width="32" Icon="Solid_PencilAlt"/>
+                        </Button>
+                        <Button>
+                            <Button.Background>
+                                <SolidColorBrush Opacity="0"/>
+                            </Button.Background>
+                            <fa1:ImageAwesome Height="32" Width="32" Icon="Solid_Broom"/>
+                        </Button>
                     </StackPanel>
 
                     <TextBlock Grid.Row="5" Grid.Column="0" Text="Умершие"/>
                     <TextBlock Grid.Row="5" Grid.Column="1" Text="25"/>
                     <StackPanel Grid.Row="5" Grid.Column="2">
-                        <Button Content="Edit"/>
-                        <Button Content="Clear"/>
+                        <Button>
+                            <Button.Background>
+                                <SolidColorBrush Opacity="0"/>
+                            </Button.Background>
+                            <fa1:ImageAwesome Height="32" Width="32" Icon="Solid_PencilAlt"/>
+                        </Button>
+                        <Button>
+                            <Button.Background>
+                                <SolidColorBrush Opacity="0"/>
+                            </Button.Background>
+                            <fa1:ImageAwesome Height="32" Width="32" Icon="Solid_Broom"/>
+                        </Button>
                     </StackPanel>
 
                     <TextBlock Grid.Row="6" Grid.Column="0" Text="Во временном отпуске"/>
                     <TextBlock Grid.Row="6" Grid.Column="1" Text="25"/>
                     <StackPanel Grid.Row="6" Grid.Column="2">
-                        <Button Content="Edit"/>
-                        <Button Content="Clear"/>
+                        <Button>
+                            <Button.Background>
+                                <SolidColorBrush Opacity="0"/>
+                            </Button.Background>
+                            <fa1:ImageAwesome Height="32" Width="32" Icon="Solid_PencilAlt"/>
+                        </Button>
+                        <Button>
+                            <Button.Background>
+                                <SolidColorBrush Opacity="0"/>
+                            </Button.Background>
+                            <fa1:ImageAwesome Height="32" Width="32" Icon="Solid_Broom"/>
+                        </Button>
                     </StackPanel>
 
                 </Grid>
