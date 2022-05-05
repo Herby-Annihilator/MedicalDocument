@@ -41,6 +41,11 @@
                             </Trigger>
                         </Style.Triggers>
                     </Style>
+                    <Style TargetType="ComboBox">
+                        <Setter Property="MinWidth" Value="350"/>
+                        <Setter Property="HorizontalAlignment" Value="Left"/>
+                        <Setter Property="Margin" Value="0, 5"/>
+                    </Style>
                 </Grid.Resources>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"/>
@@ -61,14 +66,15 @@
                 <TextBlock Grid.Row="3" Grid.Column="0" Text="Наименование отделения"/>
                 <TextBlock Grid.Row="4" Grid.Column="0" Text="Профиль коек (общий)"/>
 
-                <TextBox Grid.Row="2" Grid.Column="1"/>
-                <TextBox Grid.Row="3" Grid.Column="1"/>
-                <TextBox Grid.Row="4" Grid.Column="1"/>
+                <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding OrganizationName, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding DepartmentNumber, UpdateSourceTrigger=PropertyChanged}"/>
+                <ComboBox Grid.Row="4" Grid.Column="1" ItemsSource="{Binding MedicalProfiles}" 
+                          SelectedItem="{Binding SelectedMedicalProfile}"/>
             </Grid>
             <DockPanel DockPanel.Dock="Bottom" Margin="5">
                 <StackPanel Width="375" DockPanel.Dock="Left">
                     <TextBlock Text="Ответственный" Margin="0, 3"/>
-                    <ComboBox/>
+                    <ComboBox ItemsSource="{Binding Employees}" SelectedItem="{Binding SelectedEmployee}"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" HorizontalAlignment="Right">
                     <Button Content="Экспорт" Width="150" VerticalAlignment="Bottom" Margin="10, 0"/>
@@ -102,10 +108,15 @@
                             <fa1:ImageAwesome Height="32" Width="32" Icon="Solid_Trash"/>
                         </Button>
                     </StackPanel>
-                    <DataGrid>
+                    <DataGrid ItemsSource="{Binding Beds}"
+                              SelectedItem="{Binding SelectedBed}"
+                              AutoGenerateColumns="False"
+                              CanUserAddRows="False"
+                              CanUserDeleteRows="False"
+                              CanUserSortColumns="False">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Наименование" Width="3*"/>
-                            <DataGridTextColumn Header="Код" Width="*"/>
+                            <DataGridTextColumn Header="Наименование" Width="3*" Binding="{Binding Profile.Name}"/>
+                            <DataGridTextColumn Header="Код" Width="*" Binding="{Binding Id}"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </DockPanel>
@@ -162,9 +173,9 @@
 
                     <TextBlock Grid.Row="1" Grid.Column="0" Text="Поступившие, в том числе из круглосуточного стационара"/>
                     <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center">
-                        <TextBlock Text="25"/>
+                        <TextBlock Text="{Binding AdmittedPatientsCount}"/>
                         <TextBlock Text=":"/>
-                        <TextBlock Text="20"/>
+                        <TextBlock Text="{Binding AdmittedFromHospitalPatientsCount}"/>
                     </StackPanel>
                     <StackPanel Grid.Row="1" Grid.Column="2">
                         <Button>
@@ -182,7 +193,7 @@
                     </StackPanel>
 
                     <TextBlock Grid.Row="2" Grid.Column="0" Text="Выписанные"/>
-                    <TextBlock Grid.Row="2" Grid.Column="1" Text="25"/>
+                    <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding DischargedPatientsCount}"/>
                     <StackPanel Grid.Row="2" Grid.Column="2">
                         <Button>
                             <Button.Background>
@@ -199,7 +210,7 @@
                     </StackPanel>
 
                     <TextBlock Grid.Row="3" Grid.Column="0" Text="Переведены в другие отделения"/>
-                    <TextBlock Grid.Row="3" Grid.Column="1" Text="25"/>
+                    <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding TransferredToAnotherDepartments}"/>
                     <StackPanel Grid.Row="3" Grid.Column="2">
                         <Button>
                             <Button.Background>
@@ -216,7 +227,7 @@
                     </StackPanel>
 
                     <TextBlock Grid.Row="4" Grid.Column="0" Text="Переведены в другие стационары"/>
-                    <TextBlock Grid.Row="4" Grid.Column="1" Text="25"/>
+                    <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding TransferredToAnotherHospitals}"/>
                     <StackPanel Grid.Row="4" Grid.Column="2">
                         <Button>
                             <Button.Background>
@@ -233,7 +244,7 @@
                     </StackPanel>
 
                     <TextBlock Grid.Row="5" Grid.Column="0" Text="Умершие"/>
-                    <TextBlock Grid.Row="5" Grid.Column="1" Text="25"/>
+                    <TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding DeceasedPatients}"/>
                     <StackPanel Grid.Row="5" Grid.Column="2">
                         <Button>
                             <Button.Background>
@@ -250,7 +261,7 @@
                     </StackPanel>
 
                     <TextBlock Grid.Row="6" Grid.Column="0" Text="Во временном отпуске"/>
-                    <TextBlock Grid.Row="6" Grid.Column="1" Text="25"/>
+                    <TextBlock Grid.Row="6" Grid.Column="1" Text="{Binding PatientsOnTemporaryLeave}"/>
                     <StackPanel Grid.Row="6" Grid.Column="2">
                         <Button>
                             <Button.Background>
