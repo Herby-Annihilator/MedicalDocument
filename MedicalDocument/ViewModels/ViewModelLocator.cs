@@ -10,5 +10,9 @@ namespace MedicalDocument.ViewModels
         public MainWindowViewModel MainWindowModel => App.Services.GetRequiredService<MainWindowViewModel>();
         public AdmittedPatientsWindowViewModel AdmittedPatientsWindowViewModel
             => App.Services.GetRequiredService<AdmittedPatientsWindowViewModel>();
+        public SpecialGroupWindowViewModel SpecialGroupWindowViewModel
+            => App.Services.GetRequiredService<SpecialGroupWindowViewModel>();
+        public DetailsWindowViewModel DetailsWindowViewModel
+            => App.Services.GetRequiredService<DetailsWindowViewModel>();
     }
 }

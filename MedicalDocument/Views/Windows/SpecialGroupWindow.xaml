@@ -8,6 +8,7 @@
         mc:Ignorable="d"
         Title="SpecialGroupWindow" Height="660" Width="600"
         FontSize="14"
+        DataContext="{Binding SpecialGroupWindowViewModel, Source={StaticResource Locator}}"
         >
     <DockPanel>
         <StatusBar DockPanel.Dock="Bottom">
@@ -26,24 +27,29 @@
                 <TextBlock Text="Binding" Margin="5, 0"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="5">
-                <Button>
+                <Button Command="{Binding AddPatientCommand}">
                     <Button.Background>
                         <SolidColorBrush Opacity="0"/>
                     </Button.Background>
                     <fa:ImageAwesome Height="32" Width="32" Icon="Solid_Plus" Foreground="Black"/>
                 </Button>
-                <Button Margin="5, 0">
+                <Button Margin="5, 0" Command="{Binding RemoveSelectedPatientCommand}">
                     <Button.Background>
                         <SolidColorBrush Opacity="0"/>
                     </Button.Background>
                     <fa:ImageAwesome Height="32" Width="32" Icon="Solid_Trash"/>
                 </Button>
             </StackPanel>
-            <DataGrid Grid.Row="2" Margin="5">
+            <DataGrid Grid.Row="2" Margin="5" ItemsSource="{Binding Patients}" 
+                      SelectedItem="{Binding SelectedPatient}"
+                      CanUserAddRows="False"
+                      CanUserDeleteRows="False"
+                      CanUserSortColumns="False"
+                      AutoGenerateColumns="False">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Фамилия" Width="*"/>
-                    <DataGridTextColumn Header="Имя" Width="*"/>
-                    <DataGridTextColumn Header="Отчество" Width="*"/>
+                    <DataGridTextColumn Header="Фамилия" Width="*" Binding="{Binding FirstName}"/>
+                    <DataGridTextColumn Header="Имя" Width="*" Binding="{Binding LastName}"/>
+                    <DataGridTextColumn Header="Отчество" Width="*" Binding="{Binding Patronymic}"/>
                 </DataGrid.Columns>
             </DataGrid>
             <StackPanel Orientation="Horizontal" Grid.Row="3" Margin="5">
@@ -53,8 +59,8 @@
                 <TextBlock Text="Binding" Margin="5, 0"/>
             </StackPanel>
             <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
-                <Button Content="Отменить" Margin="5, 0" Width="150"/>
-                <Button Content="Сохранить" Width="150"/>
+                <Button Content="Отменить" Margin="5, 0" Width="150" Command="{Binding CancelCommand}"/>
+                <Button Content="Сохранить" Width="150" Command="{Binding SaveChangesCommand}"/>
             </StackPanel>
         </Grid>
     </DockPanel>

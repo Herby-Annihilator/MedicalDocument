@@ -9,6 +9,9 @@ namespace MedicalDocument.ViewModels
     {
         public static IServiceCollection AddViewModels(this IServiceCollection services) => services
            .AddSingleton<MainWindowViewModel>()
+            .AddTransient<AdmittedPatientsWindowViewModel>()
+            .AddTransient<DetailsWindowViewModel>()
+            .AddTransient<SpecialGroupWindowViewModel>()
         ;
     }
 }
