@@ -8,5 +8,7 @@ namespace MedicalDocument.ViewModels
     public class ViewModelLocator
     {
         public MainWindowViewModel MainWindowModel => App.Services.GetRequiredService<MainWindowViewModel>();
+        public AdmittedPatientsWindowViewModel AdmittedPatientsWindowViewModel
+            => App.Services.GetRequiredService<AdmittedPatientsWindowViewModel>();
     }
 }
