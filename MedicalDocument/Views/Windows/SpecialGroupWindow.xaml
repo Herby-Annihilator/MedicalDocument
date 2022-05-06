@@ -24,7 +24,7 @@
             </Grid.RowDefinitions>
             <StackPanel Orientation="Horizontal" Margin="5, 10" Grid.Row="0" HorizontalAlignment="Center">
                 <TextBlock Text="ФИО"/>
-                <TextBlock Text="Binding" Margin="5, 0"/>
+                <TextBlock Text="{Binding PatientsGroupName}" Margin="5, 0"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="5">
                 <Button Command="{Binding AddPatientCommand}">
@@ -54,9 +54,9 @@
             </DataGrid>
             <StackPanel Orientation="Horizontal" Grid.Row="3" Margin="5">
                 <TextBlock Text="Всего"/>
-                <TextBlock Text="Указать критерий" Margin="5, 0"/>
+                <TextBlock Text="{Binding PatientsGroupName}" Margin="5, 0"/>
                 <TextBlock Text=":"/>
-                <TextBlock Text="Binding" Margin="5, 0"/>
+                <TextBlock Text="{Binding Patients.Count}" Margin="5, 0"/>
             </StackPanel>
             <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
                 <Button Content="Отменить" Margin="5, 0" Width="150" Command="{Binding CancelCommand}"/>

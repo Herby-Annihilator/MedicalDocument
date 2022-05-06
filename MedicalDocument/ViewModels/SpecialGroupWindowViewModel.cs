@@ -19,6 +19,7 @@ namespace MedicalDocument.ViewModels
         {
             _groupWindowDto = dto;
             Patients = new ObservableCollection<Patient>(dto.Patients);
+            PatientsGroupName = dto.PatientsGroupName;
         }
 
         public SpecialGroupWindowViewModel()
@@ -36,8 +37,10 @@ namespace MedicalDocument.ViewModels
         #region Propeties
         private string _status = "";
         public string Status { get => _status; set => Set(ref _status, value); }
-        public ObservableCollection<Patient> Patients { get; } = new ObservableCollection<Patient>();
-        
+
+        private string _patientsGroupName = "";
+        public string PatientsGroupName { get => _patientsGroupName; set => Set(ref _patientsGroupName, value); }
+        public ObservableCollection<Patient> Patients { get; } = new ObservableCollection<Patient>();      
         public Patient SelectedPatient { get; set; }
         
         #endregion
