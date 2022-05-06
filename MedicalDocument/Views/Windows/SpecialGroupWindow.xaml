@@ -12,7 +12,7 @@
         >
     <DockPanel>
         <StatusBar DockPanel.Dock="Bottom">
-            <StatusBarItem Content="Status"/>
+            <StatusBarItem Content="{Binding Status}"/>
         </StatusBar>
         <Grid>
             <Grid.RowDefinitions>

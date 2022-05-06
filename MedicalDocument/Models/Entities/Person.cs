@@ -14,6 +14,19 @@ namespace MedicalDocument.Models.Entities
         public virtual string? Patronymic { get; set; }
         public int Age { get; set; } = 25;
         public Sex Sex { get; set; } = Sex.Male;
+
+        public virtual Person Clone()
+        {
+            return new Person()
+            {
+                Id = Id,
+                FirstName = (string)FirstName.Clone(),
+                LastName = (string)LastName.Clone(),
+                Patronymic = (string)Patronymic.Clone(),
+                Age = Age,
+                Sex = Sex,
+            };
+        }
     }
 
     public enum Sex

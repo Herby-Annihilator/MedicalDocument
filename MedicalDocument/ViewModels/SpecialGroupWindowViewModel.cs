@@ -1,4 +1,5 @@
 ﻿using MedicalDocument.Infrastructure.Commands;
+using MedicalDocument.Models.DTO;
 using MedicalDocument.Models.Entities;
 using MedicalDocument.ViewModels.Base;
 using System;
@@ -11,8 +12,15 @@ using System.Windows.Input;
 
 namespace MedicalDocument.ViewModels
 {
-    public class SpecialGroupWindowViewModel : ViewModel
+    public class SpecialGroupWindowViewModel : ClosableViewModel
     {
+        private SpecialGroupWindowDto _groupWindowDto;
+        public SpecialGroupWindowViewModel(SpecialGroupWindowDto dto) : this()
+        {
+            _groupWindowDto = dto;
+            Patients = new ObservableCollection<Patient>(dto.Patients);
+        }
+
         public SpecialGroupWindowViewModel()
         {
             SaveChangesCommand = new LambdaCommand(OnSaveChangesCommandExecuted,
@@ -40,19 +48,25 @@ namespace MedicalDocument.ViewModels
         public ICommand SaveChangesCommand { get; }
         private void OnSaveChangesCommandExecuted(object p)
         {
-
+            _groupWindowDto.Patients = ClonePatients();
+            OnCloseWindow(new CloseWindowEventArgs(true));
         }
-        private bool CanSaveChangesCommandExecute(object p)
-        {
-            return true;
-        }
+        private bool CanSaveChangesCommandExecute(object p) => true;
         #endregion
 
         #region CancelCommand
         public ICommand CancelCommand { get; }
         private void OnCancelCommandExecuted(object p)
         {
-
+            try
+            {
+                Status = "";
+                OnCloseWindow(new CloseWindowEventArgs(false));
+            }
+            catch (Exception ex)
+            {
+                Status = ex.Message;
+            }
         }
         private bool CanCancelCommandExecute(object p) => true;
         #endregion
@@ -95,5 +109,15 @@ namespace MedicalDocument.ViewModels
         #endregion
 
         #endregion
+
+        protected IEnumerable<Patient> ClonePatients()
+        {
+            List<Patient> patients = new List<Patient>();
+            foreach (Patient pat in Patients)
+            {
+                patients.Add(pat.Clone());
+            }
+            return patients;
+        }
     }
 }
