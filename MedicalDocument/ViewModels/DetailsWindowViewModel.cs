@@ -1,7 +1,9 @@
 ﻿using MedicalDocument.Infrastructure.Commands;
+using MedicalDocument.Models.Entities;
 using MedicalDocument.ViewModels.Base;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,8 +21,18 @@ namespace MedicalDocument.ViewModels
         }
 
         #region Properties
+
+        private string _status = "";
+        public string Status { get => _status; set => Set(ref _status, value); }
+
         private string _bedsCount = "";
         public string BedsCount { get => _bedsCount; set => Set(ref _bedsCount, value); }
+
+        private string _bedsOnRepair = "";
+        public string BedsOnRepair { get => _bedsOnRepair; set => Set(ref _bedsOnRepair, value); }
+
+        public ObservableCollection<MedicalProfile> MedicalProfiles { get; }
+        public MedicalProfile SelectedProfile { get; set; }
 
         #region AdmittedPatients
 
@@ -52,7 +64,7 @@ namespace MedicalDocument.ViewModels
         public string TransferredToTheDailyHospitalCount { get => _transferredToTheDailyHospitalCount; set => Set(ref _transferredToTheDailyHospitalCount, value); }
 
         private string _allDischargededPatientsCount = "";
-        public string AllDischargededPatientsCount { get => _transferredToTheDailyHospitalCount; set => Set(ref _transferredToTheDailyHospitalCount, value); }
+        public string AllDischargededPatientsCount { get => _allDischargededPatientsCount; set => Set(ref _allDischargededPatientsCount, value); }
 
         #endregion
 

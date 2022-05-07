@@ -7,6 +7,8 @@
         mc:Ignorable="d"
         Title="DetailsWindow" Height="700" Width="770"
         FontSize="14"
+        xmlns:viewmodels="clr-namespace:MedicalDocument.ViewModels"
+        d:DataContext="{d:DesignInstance viewmodels:DetailsWindowViewModel, IsDesignTimeCreatable=True}"
         >
     <Window.Resources>
         <Style TargetType="TextBlock">
@@ -18,7 +20,7 @@
     </Window.Resources>
     <DockPanel>
         <StatusBar DockPanel.Dock="Bottom">
-            <StatusBarItem Content="Status"/>
+            <StatusBarItem Content="{Binding Status}"/>
         </StatusBar>
         <Grid>
             <Grid.RowDefinitions>
@@ -50,16 +52,21 @@
                 </Grid.Resources>
 
                 <TextBlock Grid.Row="0" Grid.Column="0" Text="Фактическое число коек" HorizontalAlignment="Left" Margin="79,5,0,5" Width="158"/>
-                <TextBox Grid.Row="0" Grid.Column="1" MinWidth="120" HorizontalAlignment="Center" Margin="0,5,0,5" Width="120"/>
+                <TextBox Grid.Row="0" Grid.Column="1" MinWidth="120" HorizontalAlignment="Center" Margin="0,5,0,5" 
+                         Width="120" Text="{Binding BedsCount, UpdateSourceTrigger=PropertyChanged}"
+                         VerticalAlignment="Center"/>
 
                 <TextBlock Grid.Row="1" Grid.Column="0" Text="Из них на ремонте" HorizontalAlignment="Left" Margin="116,5,0,5" Width="121"/>
-                <TextBox Grid.Row="1" Grid.Column="1" MinWidth="120" HorizontalAlignment="Center" Margin="0,5,0,5" Width="120"/>
+                <TextBox Grid.Row="1" Grid.Column="1" MinWidth="120" HorizontalAlignment="Center" Margin="0,5,0,5" Width="120" Text="{Binding BedsOnRepair, UpdateSourceTrigger=PropertyChanged}"/>
 
-                <TextBlock Grid.Row="0" Grid.Column="2" Text="Фактическое число коек" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="17,5,0,5" Width="158"/>
-                <TextBox Grid.Row="0" Grid.Column="3" MinWidth="200" Margin="0,5,0,5" Width="200" HorizontalAlignment="Center"/>
+                <TextBlock Grid.Row="0" Grid.Column="2" Text="Профиль коек" HorizontalAlignment="Right" Margin="17,5,0,5"/>
+                <ComboBox Grid.Row="0" Grid.Column="3" MinWidth="200" Margin="0,5,0,5" Width="200" HorizontalAlignment="Center" 
+                          ItemsSource="{Binding MedicalProfiles}" SelectedItem="{Binding SelectedProfile}"
+                          VerticalAlignment="Center"/>
 
-                <TextBlock Grid.Row="1" Grid.Column="2" Text="Из них на ремонте" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="54,5,0,5" Width="121"/>
-                <TextBox Grid.Row="1" Grid.Column="3" MinWidth="200" Margin="0,5,0,5" Width="200" HorizontalAlignment="Center"/>
+                <TextBlock Grid.Row="1" Grid.Column="2" Text="Код" HorizontalAlignment="Right" Margin="54,5,0,5"/>
+                <TextBox Grid.Row="1" Grid.Column="3" MinWidth="200" Margin="0,5,0,5" Width="200" HorizontalAlignment="Center"
+                         Text="{Binding SelectedProfile.Id}" IsReadOnly="True"/>
 
             </Grid>
             <GroupBox Grid.Row="1" Header="Движение больных за истекшие сутки">
@@ -105,11 +112,11 @@
                             <TextBlock Grid.Row="3" Grid.Column="0" Text="Из дневного стационара"/>
                             <TextBlock Grid.Row="4" Grid.Column="0" Text="Всего" HorizontalAlignment="Right"/>
 
-                            <TextBox Grid.Row="0" Grid.Column="1"/>
-                            <TextBox Grid.Row="1" Grid.Column="1"/>
-                            <TextBox Grid.Row="2" Grid.Column="1"/>
-                            <TextBox Grid.Row="3" Grid.Column="1"/>
-                            <TextBox Grid.Row="4" Grid.Column="1"/>
+                            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding ChildrenCount, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding OldPeopleCount, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding PeopleFromVillageCount, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding PeopleFromHospitalCount, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding AllAdmittedPeopleCount, UpdateSourceTrigger=PropertyChanged}"/>
                         </Grid>
                     </GroupBox>
                     <GroupBox Grid.Row="0" Grid.Column="1" Margin="5" Header="Выписано">
@@ -132,14 +139,14 @@
                                     <TextBlock Text="Другие стационары" Grid.Row="0" Grid.Column="0"/>
                                     <TextBlock Text="Круглосуточный стационар" TextWrapping="Wrap" Grid.Row="1" Grid.Column="0"/>
                                     <TextBlock Text="Дневной стационар" Grid.Row="2" Grid.Column="0"/>
-                                    <TextBox Grid.Row="0" Grid.Column="1"/>
-                                    <TextBox Grid.Row="1" Grid.Column="1"/>
-                                    <TextBox Grid.Row="2" Grid.Column="1"/>
+                                    <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding TransferredToAnotherHospitalsCount, UpdateSourceTrigger=PropertyChanged}"/>
+                                    <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding TransferredToTheHospitalCount, UpdateSourceTrigger=PropertyChanged}"/>
+                                    <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding TransferredToTheDailyHospitalCount, UpdateSourceTrigger=PropertyChanged}"/>
                                 </Grid>
                             </GroupBox>
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="1">
                                 <TextBlock Text="Всего"/>
-                                <TextBox/>
+                                <TextBox Text="{Binding AllDischargededPatientsCount}" IsReadOnly="True"/>
                             </StackPanel>
                         </Grid>
                     </GroupBox>
@@ -155,18 +162,18 @@
                             </Grid.ColumnDefinitions>
                             <TextBlock Grid.Row="0" Grid.Column="0" Text="Из других отделений"/>
                             <TextBlock Grid.Row="1" Grid.Column="0" Text="В другие отделения"/>
-                            <TextBox Grid.Row="0" Grid.Column="1"/>
-                            <TextBox Grid.Row="1" Grid.Column="1"/>
+                            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding TransferredFromAnotherDepartments, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding TransferredToAnotherDepartments, UpdateSourceTrigger=PropertyChanged}"/>
                         </Grid>
                     </GroupBox>
                     <StackPanel Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="5">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Умерло"/>
-                            <TextBox/>
+                            <TextBox Text="{Binding DeadPatientsCount, UpdateSourceTrigger=PropertyChanged}"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="0, 10">
                             <TextBlock Text="Состояло больных на начало истекших суток" Width="160"/>
-                            <TextBox/>
+                            <TextBox Text="{Binding CountOfPatientsOnTheStartOfThePreviousDay, UpdateSourceTrigger=PropertyChanged}"/>
                         </StackPanel>
                     </StackPanel>
                 </Grid>
@@ -202,8 +209,8 @@
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Row="0" Grid.Column="0" Text="Состоит больных"/>
                         <TextBlock Grid.Row="1" Grid.Column="0" Text="Состоит матерей при больнных детях"/>
-                        <TextBox Grid.Row="0" Grid.Column="1"/>
-                        <TextBox Grid.Row="1" Grid.Column="1"/>
+                        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding CountOfPatientsOnTheStartOfTheCurrentDay, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding CountOfMothersWithSickChildren, UpdateSourceTrigger=PropertyChanged}"/>
                     </Grid>
                     <GroupBox Grid.Column="1" Header="Свободных мест" Margin="5">
                         <Grid>
@@ -231,15 +238,15 @@
                             </Grid.ColumnDefinitions>
                             <TextBlock Grid.Row="0" Grid.Column="0" Text="Мужских"/>
                             <TextBlock Grid.Row="1" Grid.Column="0" Text="Женских"/>
-                            <TextBox Grid.Row="0" Grid.Column="1"/>
-                            <TextBox Grid.Row="1" Grid.Column="1"/>
+                            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding FreeMaleBedsCount, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding FreeFemaleBedsCount, UpdateSourceTrigger=PropertyChanged}"/>
                         </Grid>
                     </GroupBox>
                 </Grid>
             </GroupBox>
             <StackPanel Orientation="Horizontal" Grid.Row="3" HorizontalAlignment="Right" Margin="5">
-                <Button Content="Отменить" Width="150" Margin="5, 0"/>
-                <Button Content="Сохранить" Width="150"/>
+                <Button Content="Отменить" Width="150" Margin="5, 0" Command="{Binding CancelCommand}"/>
+                <Button Content="Сохранить" Width="150" Command="{Binding SaveChangesCommand}"/>
             </StackPanel>
         </Grid>
     </DockPanel>
