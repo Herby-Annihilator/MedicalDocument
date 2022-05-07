@@ -11,7 +11,7 @@ using System.Windows.Input;
 
 namespace MedicalDocument.ViewModels
 {
-    public class DetailsWindowViewModel : ViewModel
+    public class DetailsWindowViewModel : ClosableViewModel
     {
         public DetailsWindowViewModel()
         {
@@ -108,7 +108,26 @@ namespace MedicalDocument.ViewModels
         }
         private bool CanSaveChangesCommandExecute(object p)
         {
-            return true;
+            return !string.IsNullOrWhiteSpace(FreeFemaleBedsCount)
+                && !string.IsNullOrWhiteSpace(FreeMaleBedsCount)
+                && !string.IsNullOrWhiteSpace(CountOfMothersWithSickChildren)
+                && !string.IsNullOrWhiteSpace(AllAdmittedPeopleCount)
+                && !string.IsNullOrWhiteSpace(AllDischargededPatientsCount)
+                && !string.IsNullOrWhiteSpace(BedsCount)
+                && !string.IsNullOrWhiteSpace(BedsOnRepair)
+                && !string.IsNullOrWhiteSpace(ChildrenCount)
+                && !string.IsNullOrWhiteSpace(CountOfPatientsOnTheStartOfTheCurrentDay)
+                && !string.IsNullOrWhiteSpace(CountOfPatientsOnTheStartOfThePreviousDay)
+                && !string.IsNullOrWhiteSpace(DeadPatientsCount)
+                && !string.IsNullOrWhiteSpace(OldPeopleCount)
+                && !string.IsNullOrWhiteSpace(PeopleFromHospitalCount)
+                && !string.IsNullOrWhiteSpace(PeopleFromVillageCount)
+                && !string.IsNullOrWhiteSpace(TransferredFromAnotherDepartments)
+                && !string.IsNullOrWhiteSpace(TransferredToAnotherDepartments)
+                && !string.IsNullOrWhiteSpace(TransferredToAnotherHospitalsCount)
+                && !string.IsNullOrWhiteSpace(TransferredToTheDailyHospitalCount)
+                && !string.IsNullOrWhiteSpace(TransferredToTheHospitalCount)
+                && SelectedProfile != null;
         }
 
         #endregion
@@ -118,7 +137,15 @@ namespace MedicalDocument.ViewModels
         public ICommand CancelCommand { get; }
         private void OnCancelCommandExecuted(object p)
         {
-
+            try 
+            {
+                Status = "";
+                OnCloseWindow(new CloseWindowEventArgs(false));
+            }
+            catch (Exception ex)
+            {
+                Status = ex.Message;
+            }
         }
         private bool CanCancelCommandExecute(object p) => true;
 
