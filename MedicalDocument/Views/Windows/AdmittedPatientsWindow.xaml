@@ -12,7 +12,7 @@
         >
     <DockPanel>
         <StatusBar DockPanel.Dock="Bottom">
-            <StatusBarItem Content="Status"/>
+            <StatusBarItem Content="{Binding Status}"/>
         </StatusBar>
         <Grid>
             <Grid.RowDefinitions>
@@ -25,28 +25,29 @@
             <TextBlock Grid.Row="0" Margin="5" HorizontalAlignment="Center"
                        Text="ФИО поступивших, в том числе из груглосуточного стационара" TextWrapping="Wrap"/>
             <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="5">
-                <Button>
+                <Button Command="{Binding AddPatientCommand}">
                     <Button.Background>
                         <SolidColorBrush Opacity="0"/>
                     </Button.Background>
                     <fa:ImageAwesome Height="32" Width="32" Icon="Solid_Plus" Foreground="Black"/>
                 </Button>
-                <Button Margin="5, 0">
+                <Button Margin="5, 0" Command="{Binding RemoveSelectedPatient}">
                     <Button.Background>
                         <SolidColorBrush Opacity="0"/>
                     </Button.Background>
                     <fa:ImageAwesome Height="32" Width="32" Icon="Solid_Trash"/>
                 </Button>
             </StackPanel>
-            <DataGrid Grid.Row="2" Margin="5" ItemsSource="{Binding Patients}"
+            <DataGrid Grid.Row="2" Margin="5" ItemsSource="{Binding Patients}" SelectedItem="{Binding SelectedPatient}"
                       CanUserAddRows="False"
                       CanUserDeleteRows="False"
-                      CanUserSortColumns="False">
+                      CanUserSortColumns="False"
+                      AutoGenerateColumns="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Фамилия" Width="*" Binding="{Binding FirstName}"/>
                     <DataGridTextColumn Header="Имя" Width="*" Binding="{Binding LastName}"/>
                     <DataGridTextColumn Header="Отчество" Width="*" Binding="{Binding Patronymic}"/>
-                    <DataGridCheckBoxColumn Width="*" Binding="{Binding IsFromVillage}">
+                    <DataGridCheckBoxColumn Width="*" Binding="{Binding IsFromHospital}">
                         <DataGridCheckBoxColumn.Header>
                             <TextBlock TextWrapping="Wrap" Text="Из круглосуточного стационара" TextAlignment="Center"/>
                         </DataGridCheckBoxColumn.Header>
@@ -64,8 +65,8 @@
                 </StackPanel>
             </StackPanel>
             <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
-                <Button Content="Отменить" Margin="5, 0" Width="150"/>
-                <Button Content="Сохранить" Width="150"/>
+                <Button Content="Отменить" Margin="5, 0" Width="150" Command="{Binding CancelCommand}"/>
+                <Button Content="Сохранить" Width="150" Command="{Binding SaveChangesCommand}"/>
             </StackPanel>
         </Grid>
     </DockPanel>

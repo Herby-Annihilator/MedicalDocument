@@ -14,6 +14,7 @@ namespace MedicalDocument.ViewModels
 {
     public class SpecialGroupWindowViewModel : ClosableViewModel
     {
+        // TODO: вполне возможна утечка памяти
         private SpecialGroupWindowDto _groupWindowDto;
         public SpecialGroupWindowViewModel(SpecialGroupWindowDto dto) : this()
         {
@@ -40,7 +41,7 @@ namespace MedicalDocument.ViewModels
 
         private string _patientsGroupName = "";
         public string PatientsGroupName { get => _patientsGroupName; set => Set(ref _patientsGroupName, value); }
-        public ObservableCollection<Patient> Patients { get; } = new ObservableCollection<Patient>();      
+        public ObservableCollection<Patient> Patients { get; }     
         public Patient SelectedPatient { get; set; }
         
         #endregion
@@ -51,7 +52,7 @@ namespace MedicalDocument.ViewModels
         public ICommand SaveChangesCommand { get; }
         private void OnSaveChangesCommandExecuted(object p)
         {
-            _groupWindowDto.Patients = ClonePatients();
+            PrepareData();
             OnCloseWindow(new CloseWindowEventArgs(true));
         }
         private bool CanSaveChangesCommandExecute(object p) => true;
@@ -113,14 +114,13 @@ namespace MedicalDocument.ViewModels
 
         #endregion
 
-        protected IEnumerable<Patient> ClonePatients()
+        private void PrepareData()
         {
-            List<Patient> patients = new List<Patient>();
-            foreach (Patient pat in Patients)
+            _groupWindowDto.Patients.Clear();
+            foreach (var item in Patients)
             {
-                patients.Add(pat.Clone());
+                _groupWindowDto.Patients.Add(item.Clone());
             }
-            return patients;
         }
     }
 }
