@@ -69,12 +69,18 @@
                 <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding OrganizationName, UpdateSourceTrigger=PropertyChanged}"/>
                 <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding DepartmentNumber, UpdateSourceTrigger=PropertyChanged}"/>
                 <ComboBox Grid.Row="4" Grid.Column="1" ItemsSource="{Binding MedicalProfiles}" 
-                          SelectedItem="{Binding SelectedMedicalProfile}"/>
+                          SelectedItem="{Binding SelectedMedicalProfile}"
+                          IsTextSearchEnabled="True"
+                          IsEditable="True"/>
             </Grid>
             <DockPanel DockPanel.Dock="Bottom" Margin="5">
                 <StackPanel Width="375" DockPanel.Dock="Left">
                     <TextBlock Text="Ответственный" Margin="0, 3"/>
-                    <ComboBox ItemsSource="{Binding Employees}" SelectedItem="{Binding SelectedEmployee}"/>
+                    <ComboBox ItemsSource="{Binding Employees}" 
+                              SelectedItem="{Binding SelectedEmployee}"
+                              IsTextSearchEnabled="True"
+                              IsEditable="True"
+                              DisplayMemberPath="FullName"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" HorizontalAlignment="Right">
                     <Button Content="Экспорт" Width="150" VerticalAlignment="Bottom" Margin="10, 0"/>

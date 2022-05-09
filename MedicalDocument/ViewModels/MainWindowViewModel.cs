@@ -32,6 +32,8 @@ namespace MedicalDocument.ViewModels
                 CanChangeAdmittedPatientGroupCommandExecute);
             ClearAdmittedPatientsGroupsCommand = new LambdaCommand(OnClearAdmittedPatientsGroupsCommandExecuted,
                 CanClearAdmittedPatientsGroupsCommandExecute);
+
+            GenerateEmployees();
         }
 
         #region Properties
@@ -257,6 +259,17 @@ namespace MedicalDocument.ViewModels
         {
             AdmittedPatientsCount = _admittedPatientsDto.Count;
             AdmittedFromHospitalPatientsCount = _admittedPatientsDto.CountOfPatientsFromHospital;
+        }
+
+        private void GenerateEmployees()
+        {
+            if (Employees == null)
+                Employees = new ObservableCollection<Employee>();
+            for (int i = 0; i < 10; i++)
+            {
+                Employees.Add(new Employee() { Id = i + 1, FirstName = $"Фамилия {i + 1}", LastName = $"Имя {i + 1}",
+                    Patronymic = $"Отчество {i + 1}" });
+            }
         }
         #endregion
     }

@@ -9,5 +9,7 @@ namespace MedicalDocument.Models.Entities
     public class Employee : Person
     {
         public virtual string Position { get; set; } = "";
+
+        public string FullName => $"{FirstName} {LastName} {Patronymic}";
     }
 }
