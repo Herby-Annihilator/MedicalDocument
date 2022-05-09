@@ -25,74 +25,74 @@ namespace MedicalDocument.ViewModels
         private string _status = "";
         public string Status { get => _status; set => Set(ref _status, value); }
 
-        private string _bedsCount = "";
-        public string BedsCount { get => _bedsCount; set => Set(ref _bedsCount, value); }
+        private int _bedsCount = 0;
+        public int BedsCount { get => _bedsCount; set => Set(ref _bedsCount, value); }
 
-        private string _bedsOnRepair = "";
-        public string BedsOnRepair { get => _bedsOnRepair; set => Set(ref _bedsOnRepair, value); }
+        private int _bedsOnRepair = 0;
+        public int BedsOnRepair { get => _bedsOnRepair; set => Set(ref _bedsOnRepair, value); }
 
         public ObservableCollection<MedicalProfile> MedicalProfiles { get; }
         public MedicalProfile SelectedProfile { get; set; }
 
         #region AdmittedPatients
 
-        private string _childrenCount = "";
-        public string ChildrenCount { get => _childrenCount; set => Set(ref _childrenCount, value); }
+        private int _childrenCount = 0;
+        public int ChildrenCount { get => _childrenCount; set => Set(ref _childrenCount, value); }
 
-        private string _oldPeopleCount = "";
-        public string OldPeopleCount { get => _oldPeopleCount; set => Set(ref _oldPeopleCount, value); }
+        private int _oldPeopleCount = 0;
+        public int OldPeopleCount { get => _oldPeopleCount; set => Set(ref _oldPeopleCount, value); }
 
-        private string _peopleFromVillageCount = "";
-        public string PeopleFromVillageCount { get => _peopleFromVillageCount; set => Set(ref _peopleFromVillageCount, value); }
+        private int _peopleFromVillageCount = 0;
+        public int PeopleFromVillageCount { get => _peopleFromVillageCount; set => Set(ref _peopleFromVillageCount, value); }
 
-        private string _peopleFromHospitalCount = "";
-        public string PeopleFromHospitalCount { get => _peopleFromHospitalCount; set => Set(ref _peopleFromHospitalCount, value); }
+        private int _peopleFromHospitalCount = 0;
+        public int PeopleFromHospitalCount { get => _peopleFromHospitalCount; set => Set(ref _peopleFromHospitalCount, value); }
 
-        private string _allAdmittedPeopleCount = "";
-        public string AllAdmittedPeopleCount { get => _allAdmittedPeopleCount; set => Set(ref _allAdmittedPeopleCount, value); }
+        private int _allAdmittedPeopleCount = 0;
+        public int AllAdmittedPeopleCount { get => _allAdmittedPeopleCount; set => Set(ref _allAdmittedPeopleCount, value); }
 
         #endregion
 
         #region DischargedPatients
-        private string _transferredToAnotherHospitalsCount = "";
-        public string TransferredToAnotherHospitalsCount { get => _transferredToAnotherHospitalsCount; set => Set(ref _transferredToAnotherHospitalsCount, value); }
+        private int _transferredToAnotherHospitalsCount = 0;
+        public int TransferredToAnotherHospitalsCount { get => _transferredToAnotherHospitalsCount; set => Set(ref _transferredToAnotherHospitalsCount, value); }
 
-        private string _transferredToTheHospitalCount = "";
-        public string TransferredToTheHospitalCount { get => _transferredToTheHospitalCount; set => Set(ref _transferredToTheHospitalCount, value); }
+        private int _transferredToTheHospitalCount = 0;
+        public int TransferredToTheHospitalCount { get => _transferredToTheHospitalCount; set => Set(ref _transferredToTheHospitalCount, value); }
 
-        private string _transferredToTheDailyHospitalCount = "";
-        public string TransferredToTheDailyHospitalCount { get => _transferredToTheDailyHospitalCount; set => Set(ref _transferredToTheDailyHospitalCount, value); }
+        private int _transferredToTheDailyHospitalCount = 0;
+        public int TransferredToTheDailyHospitalCount { get => _transferredToTheDailyHospitalCount; set => Set(ref _transferredToTheDailyHospitalCount, value); }
 
-        private string _allDischargededPatientsCount = "";
-        public string AllDischargededPatientsCount { get => _allDischargededPatientsCount; set => Set(ref _allDischargededPatientsCount, value); }
+        private int _allDischargededPatientsCount = 0;
+        public int AllDischargededPatientsCount { get => _allDischargededPatientsCount; set => Set(ref _allDischargededPatientsCount, value); }
 
         #endregion
 
         #region TransferredInsideHospital
-        private string _transferredFromAnotherDepartments = "";
-        public string TransferredFromAnotherDepartments { get => _transferredFromAnotherDepartments; set => Set(ref _transferredFromAnotherDepartments, value); }
+        private int _transferredFromAnotherDepartments = 0;
+        public int TransferredFromAnotherDepartments { get => _transferredFromAnotherDepartments; set => Set(ref _transferredFromAnotherDepartments, value); }
 
-        private string _transferredToAnotherDepartments = "";
-        public string TransferredToAnotherDepartments { get => _transferredToAnotherDepartments; set => Set(ref _transferredToAnotherDepartments, value); }
+        private int _transferredToAnotherDepartments = 0;
+        public int TransferredToAnotherDepartments { get => _transferredToAnotherDepartments; set => Set(ref _transferredToAnotherDepartments, value); }
         #endregion
 
-        private string _deadPatientsCount = "";
-        public string DeadPatientsCount { get => _deadPatientsCount; set => Set(ref _deadPatientsCount, value); }
+        private int _deadPatientsCount = 0;
+        public int DeadPatientsCount { get => _deadPatientsCount; set => Set(ref _deadPatientsCount, value); }
 
-        private string _countOfPatientsOnTheStartOfThePreviousDay = "";
-        public string CountOfPatientsOnTheStartOfThePreviousDay { get => _countOfPatientsOnTheStartOfThePreviousDay; set => Set(ref _countOfPatientsOnTheStartOfThePreviousDay, value); }
+        private int _countOfPatientsOnTheStartOfThePreviousDay = 0;
+        public int CountOfPatientsOnTheStartOfThePreviousDay { get => _countOfPatientsOnTheStartOfThePreviousDay; set => Set(ref _countOfPatientsOnTheStartOfThePreviousDay, value); }
 
-        private string _countOfPatientsOnTheStartOfTheCurrentDay = "";
-        public string CountOfPatientsOnTheStartOfTheCurrentDay { get => _countOfPatientsOnTheStartOfTheCurrentDay; set => Set(ref _countOfPatientsOnTheStartOfTheCurrentDay, value); }
+        private int _countOfPatientsOnTheStartOfTheCurrentDay = 0;
+        public int CountOfPatientsOnTheStartOfTheCurrentDay { get => _countOfPatientsOnTheStartOfTheCurrentDay; set => Set(ref _countOfPatientsOnTheStartOfTheCurrentDay, value); }
 
-        private string _countOfMothersWithSickChildren = "";
-        public string CountOfMothersWithSickChildren { get => _countOfMothersWithSickChildren; set => Set(ref _countOfMothersWithSickChildren, value); }
+        private int _countOfMothersWithSickChildren = 0;
+        public int CountOfMothersWithSickChildren { get => _countOfMothersWithSickChildren; set => Set(ref _countOfMothersWithSickChildren, value); }
 
-        private string _freeMaleBedsCount = "";
-        public string FreeMaleBedsCount { get => _freeMaleBedsCount; set => Set(ref _freeMaleBedsCount, value); }
+        private int _freeMaleBedsCount = 0;
+        public int FreeMaleBedsCount { get => _freeMaleBedsCount; set => Set(ref _freeMaleBedsCount, value); }
 
-        private string _freeFemaleBedsCount = "";
-        public string FreeFemaleBedsCount { get => _freeFemaleBedsCount; set => Set(ref _freeFemaleBedsCount, value); }
+        private int _freeFemaleBedsCount = 0;
+        public int FreeFemaleBedsCount { get => _freeFemaleBedsCount; set => Set(ref _freeFemaleBedsCount, value); }
 
         #endregion
 
@@ -108,26 +108,7 @@ namespace MedicalDocument.ViewModels
         }
         private bool CanSaveChangesCommandExecute(object p)
         {
-            return !string.IsNullOrWhiteSpace(FreeFemaleBedsCount)
-                && !string.IsNullOrWhiteSpace(FreeMaleBedsCount)
-                && !string.IsNullOrWhiteSpace(CountOfMothersWithSickChildren)
-                && !string.IsNullOrWhiteSpace(AllAdmittedPeopleCount)
-                && !string.IsNullOrWhiteSpace(AllDischargededPatientsCount)
-                && !string.IsNullOrWhiteSpace(BedsCount)
-                && !string.IsNullOrWhiteSpace(BedsOnRepair)
-                && !string.IsNullOrWhiteSpace(ChildrenCount)
-                && !string.IsNullOrWhiteSpace(CountOfPatientsOnTheStartOfTheCurrentDay)
-                && !string.IsNullOrWhiteSpace(CountOfPatientsOnTheStartOfThePreviousDay)
-                && !string.IsNullOrWhiteSpace(DeadPatientsCount)
-                && !string.IsNullOrWhiteSpace(OldPeopleCount)
-                && !string.IsNullOrWhiteSpace(PeopleFromHospitalCount)
-                && !string.IsNullOrWhiteSpace(PeopleFromVillageCount)
-                && !string.IsNullOrWhiteSpace(TransferredFromAnotherDepartments)
-                && !string.IsNullOrWhiteSpace(TransferredToAnotherDepartments)
-                && !string.IsNullOrWhiteSpace(TransferredToAnotherHospitalsCount)
-                && !string.IsNullOrWhiteSpace(TransferredToTheDailyHospitalCount)
-                && !string.IsNullOrWhiteSpace(TransferredToTheHospitalCount)
-                && SelectedProfile != null;
+            return SelectedProfile != null;
         }
 
         #endregion

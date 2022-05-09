@@ -8,7 +8,8 @@
         mc:Ignorable="d"
         Title="SpecialGroupWindow" Height="660" Width="600"
         FontSize="14"
-        DataContext="{Binding SpecialGroupWindowViewModel, Source={StaticResource Locator}}"
+        xmlns:viewmodels="clr-namespace:MedicalDocument.ViewModels"
+        d:DataContext="{d:DesignInstance viewmodels:SpecialGroupWindowViewModel, IsDesignTimeCreatable=True}"
         >
     <DockPanel>
         <StatusBar DockPanel.Dock="Bottom">

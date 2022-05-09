@@ -8,7 +8,8 @@
         mc:Ignorable="d"
         Title="AdmittedPatientsWindow" Height="660" Width="600"
         FontSize="14"
-        DataContext="{Binding AdmittedPatientsWindowViewModel, Source={StaticResource Locator}}"
+        xmlns:viewmodels="clr-namespace:MedicalDocument.ViewModels"
+        d:DataContext="{d:DesignInstance viewmodels:AdmittedPatientsWindowViewModel, IsDesignTimeCreatable=True}"
         >
     <DockPanel>
         <StatusBar DockPanel.Dock="Bottom">

@@ -1,17 +1,34 @@
-﻿using MedicalDocument.Models.Entities;
+﻿using MedicalDocument.Models.DTO;
+using MedicalDocument.Models.Entities;
+using MedicalDocument.Models.Services;
+using MedicalDocument.Models.Services.Interfaces;
 using MedicalDocument.ViewModels.Base;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
+using System.Windows.Input;
 using System.Windows.Markup;
+using System.Reflection;
+using MedicalDocument.Infrastructure.Commands;
 
 namespace MedicalDocument.ViewModels
 {
     [MarkupExtensionReturnType(typeof(MainWindowViewModel))]
     public class MainWindowViewModel : ViewModel
     {
+        public MainWindowViewModel()
+        {
+            InitDtosDictionary();
+            ChangePatientGroupCommand = new LambdaCommand(OnChangePatientGroupCommandExecuted,
+                CanChangePatientGroupCommandExecute);
+        }
+
         #region Properties
+
+        private Dictionary<string, SpecialGroupWindowDto> _dtos;
+
         private string _title = "Title";
         public string Title { get => _title; set => Set(ref _title, value); }
 
@@ -88,10 +105,65 @@ namespace MedicalDocument.ViewModels
         private MedicalProfile _selectedMedicalProfile;
         public MedicalProfile SelectedMedicalProfile { get => _selectedMedicalProfile; 
             set => Set(ref _selectedMedicalProfile, value); }
+
         #endregion
 
         #region Commands
 
+        #region ChangePatientGroupCommand
+
+        public ICommand ChangePatientGroupCommand { get; }
+        private void OnChangePatientGroupCommandExecuted(object p)
+        {
+            try
+            {
+                Status = "";
+                if (p is string key)
+                {
+                    IUserDialog<SpecialGroupWindowDto> dialog 
+                        = App.Services.GetRequiredService<SpecialGroupWindowUserDialog>();
+                    dialog.Edit(_dtos[key]);
+                    UpdatePatientsCountInDifferentGroups();
+                }
+                else
+                    throw new ArgumentException($"Тип параметра команды должен быть string," +
+                        $" но получено {p.GetType()}");
+            }
+            catch (Exception ex)
+            {
+                Status = ex.Message;
+            }
+        }
+        private bool CanChangePatientGroupCommandExecute(object p) => true;
+
+        #endregion
+
+        #endregion
+
+        #region Methods
+        private void InitDtosDictionary()
+        {
+            _dtos = new Dictionary<string, SpecialGroupWindowDto>();
+            _dtos.Add(nameof(DischargedPatientsCount), new SpecialGroupWindowDto() { PatientsGroupName = "выписанных" });
+            _dtos.Add(nameof(TransferredToAnotherDepartments), 
+                new SpecialGroupWindowDto() { PatientsGroupName = "переведенных в другие отделения" });
+            _dtos.Add(nameof(TransferredToAnotherHospitals), 
+                new SpecialGroupWindowDto() { PatientsGroupName = "переведенных в другие стационары" });
+            _dtos.Add(nameof(DeceasedPatients), new SpecialGroupWindowDto() { PatientsGroupName = "умерших" });
+            _dtos.Add(nameof(PatientsOnTemporaryLeave), new SpecialGroupWindowDto() { PatientsGroupName = "во временном отпуске" });
+        }
+        private void UpdatePatientsCountInDifferentGroups()
+        {
+            IEnumerable<PropertyInfo> properties = GetType().GetRuntimeProperties();
+            foreach (PropertyInfo property in properties)
+            {
+                foreach (var key in _dtos.Keys)
+                {
+                    if (property.Name == key)
+                        property.SetValue(this, _dtos[key].Count);
+                }   
+            }           
+        }
         #endregion
     }
 }

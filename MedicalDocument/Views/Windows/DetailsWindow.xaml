@@ -9,6 +9,7 @@
         FontSize="14"
         xmlns:viewmodels="clr-namespace:MedicalDocument.ViewModels"
         d:DataContext="{d:DesignInstance viewmodels:DetailsWindowViewModel, IsDesignTimeCreatable=True}"
+        xmlns:cnv="clr-namespace:MedicalDocument.Infrastructure.Converters"
         >
     <Window.Resources>
         <Style TargetType="TextBlock">
@@ -53,11 +54,11 @@
 
                 <TextBlock Grid.Row="0" Grid.Column="0" Text="Фактическое число коек" HorizontalAlignment="Left" Margin="79,5,0,5" Width="158"/>
                 <TextBox Grid.Row="0" Grid.Column="1" MinWidth="120" HorizontalAlignment="Center" Margin="0,5,0,5" 
-                         Width="120" Text="{Binding BedsCount, UpdateSourceTrigger=PropertyChanged}"
+                         Width="120" Text="{Binding BedsCount, UpdateSourceTrigger=PropertyChanged, Converter={cnv:IntToStringConverter}}"
                          VerticalAlignment="Center"/>
 
                 <TextBlock Grid.Row="1" Grid.Column="0" Text="Из них на ремонте" HorizontalAlignment="Left" Margin="116,5,0,5" Width="121"/>
-                <TextBox Grid.Row="1" Grid.Column="1" MinWidth="120" HorizontalAlignment="Center" Margin="0,5,0,5" Width="120" Text="{Binding BedsOnRepair, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox Grid.Row="1" Grid.Column="1" MinWidth="120" HorizontalAlignment="Center" Margin="0,5,0,5" Width="120" Text="{Binding BedsOnRepair, UpdateSourceTrigger=PropertyChanged, Converter={cnv:IntToStringConverter}}"/>
 
                 <TextBlock Grid.Row="0" Grid.Column="2" Text="Профиль коек" HorizontalAlignment="Right" Margin="17,5,0,5"/>
                 <ComboBox Grid.Row="0" Grid.Column="3" MinWidth="200" Margin="0,5,0,5" Width="200" HorizontalAlignment="Center" 
@@ -112,11 +113,11 @@
                             <TextBlock Grid.Row="3" Grid.Column="0" Text="Из дневного стационара"/>
                             <TextBlock Grid.Row="4" Grid.Column="0" Text="Всего" HorizontalAlignment="Right"/>
 
-                            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding ChildrenCount, UpdateSourceTrigger=PropertyChanged}"/>
-                            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding OldPeopleCount, UpdateSourceTrigger=PropertyChanged}"/>
-                            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding PeopleFromVillageCount, UpdateSourceTrigger=PropertyChanged}"/>
-                            <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding PeopleFromHospitalCount, UpdateSourceTrigger=PropertyChanged}"/>
-                            <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding AllAdmittedPeopleCount, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding ChildrenCount, UpdateSourceTrigger=PropertyChanged, Converter={cnv:IntToStringConverter}}"/>
+                            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding OldPeopleCount, UpdateSourceTrigger=PropertyChanged, Converter={cnv:IntToStringConverter}}"/>
+                            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding PeopleFromVillageCount, UpdateSourceTrigger=PropertyChanged, Converter={cnv:IntToStringConverter}}"/>
+                            <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding PeopleFromHospitalCount, UpdateSourceTrigger=PropertyChanged, Converter={cnv:IntToStringConverter}}"/>
+                            <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding AllAdmittedPeopleCount, UpdateSourceTrigger=PropertyChanged, Converter={cnv:IntToStringConverter}}"/>
                         </Grid>
                     </GroupBox>
                     <GroupBox Grid.Row="0" Grid.Column="1" Margin="5" Header="Выписано">
@@ -139,14 +140,14 @@
                                     <TextBlock Text="Другие стационары" Grid.Row="0" Grid.Column="0"/>
                                     <TextBlock Text="Круглосуточный стационар" TextWrapping="Wrap" Grid.Row="1" Grid.Column="0"/>
                                     <TextBlock Text="Дневной стационар" Grid.Row="2" Grid.Column="0"/>
-                                    <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding TransferredToAnotherHospitalsCount, UpdateSourceTrigger=PropertyChanged}"/>
-                                    <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding TransferredToTheHospitalCount, UpdateSourceTrigger=PropertyChanged}"/>
-                                    <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding TransferredToTheDailyHospitalCount, UpdateSourceTrigger=PropertyChanged}"/>
+                                    <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding TransferredToAnotherHospitalsCount, UpdateSourceTrigger=PropertyChanged, Converter={cnv:IntToStringConverter}}"/>
+                                    <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding TransferredToTheHospitalCount, UpdateSourceTrigger=PropertyChanged, Converter={cnv:IntToStringConverter}}"/>
+                                    <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding TransferredToTheDailyHospitalCount, UpdateSourceTrigger=PropertyChanged, Converter={cnv:IntToStringConverter}}"/>
                                 </Grid>
                             </GroupBox>
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="1">
                                 <TextBlock Text="Всего"/>
-                                <TextBox Text="{Binding AllDischargededPatientsCount}" IsReadOnly="True"/>
+                                <TextBox Text="{Binding AllDischargededPatientsCount, Converter={cnv:IntToStringConverter}}" IsReadOnly="True"/>
                             </StackPanel>
                         </Grid>
                     </GroupBox>
@@ -162,18 +163,18 @@
                             </Grid.ColumnDefinitions>
                             <TextBlock Grid.Row="0" Grid.Column="0" Text="Из других отделений"/>
                             <TextBlock Grid.Row="1" Grid.Column="0" Text="В другие отделения"/>
-                            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding TransferredFromAnotherDepartments, UpdateSourceTrigger=PropertyChanged}"/>
-                            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding TransferredToAnotherDepartments, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding TransferredFromAnotherDepartments, UpdateSourceTrigger=PropertyChanged, Converter={cnv:IntToStringConverter}}"/>
+                            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding TransferredToAnotherDepartments, UpdateSourceTrigger=PropertyChanged, Converter={cnv:IntToStringConverter}}"/>
                         </Grid>
                     </GroupBox>
                     <StackPanel Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="5">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Умерло"/>
-                            <TextBox Text="{Binding DeadPatientsCount, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBox Text="{Binding DeadPatientsCount, UpdateSourceTrigger=PropertyChanged, Converter={cnv:IntToStringConverter}}"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="0, 10">
                             <TextBlock Text="Состояло больных на начало истекших суток" Width="160"/>
-                            <TextBox Text="{Binding CountOfPatientsOnTheStartOfThePreviousDay, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBox Text="{Binding CountOfPatientsOnTheStartOfThePreviousDay, UpdateSourceTrigger=PropertyChanged, Converter={cnv:IntToStringConverter}}"/>
                         </StackPanel>
                     </StackPanel>
                 </Grid>
@@ -209,8 +210,8 @@
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Row="0" Grid.Column="0" Text="Состоит больных"/>
                         <TextBlock Grid.Row="1" Grid.Column="0" Text="Состоит матерей при больнных детях"/>
-                        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding CountOfPatientsOnTheStartOfTheCurrentDay, UpdateSourceTrigger=PropertyChanged}"/>
-                        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding CountOfMothersWithSickChildren, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding CountOfPatientsOnTheStartOfTheCurrentDay, UpdateSourceTrigger=PropertyChanged, Converter={cnv:IntToStringConverter}}"/>
+                        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding CountOfMothersWithSickChildren, UpdateSourceTrigger=PropertyChanged, Converter={cnv:IntToStringConverter}}"/>
                     </Grid>
                     <GroupBox Grid.Column="1" Header="Свободных мест" Margin="5">
                         <Grid>
@@ -238,8 +239,8 @@
                             </Grid.ColumnDefinitions>
                             <TextBlock Grid.Row="0" Grid.Column="0" Text="Мужских"/>
                             <TextBlock Grid.Row="1" Grid.Column="0" Text="Женских"/>
-                            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding FreeMaleBedsCount, UpdateSourceTrigger=PropertyChanged}"/>
-                            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding FreeFemaleBedsCount, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding FreeMaleBedsCount, UpdateSourceTrigger=PropertyChanged, Converter={cnv:IntToStringConverter}}"/>
+                            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding FreeFemaleBedsCount, UpdateSourceTrigger=PropertyChanged, Converter={cnv:IntToStringConverter}}"/>
                         </Grid>
                     </GroupBox>
                 </Grid>

@@ -195,7 +195,7 @@
                     <TextBlock Grid.Row="2" Grid.Column="0" Text="Выписанные"/>
                     <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding DischargedPatientsCount}"/>
                     <StackPanel Grid.Row="2" Grid.Column="2">
-                        <Button>
+                        <Button Command="{Binding ChangePatientGroupCommand}" CommandParameter="DischargedPatientsCount">
                             <Button.Background>
                                 <SolidColorBrush Opacity="0"/>
                             </Button.Background>
@@ -212,7 +212,7 @@
                     <TextBlock Grid.Row="3" Grid.Column="0" Text="Переведены в другие отделения"/>
                     <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding TransferredToAnotherDepartments}"/>
                     <StackPanel Grid.Row="3" Grid.Column="2">
-                        <Button>
+                        <Button Command="{Binding ChangePatientGroupCommand}" CommandParameter="TransferredToAnotherDepartments">
                             <Button.Background>
                                 <SolidColorBrush Opacity="0"/>
                             </Button.Background>
@@ -229,7 +229,7 @@
                     <TextBlock Grid.Row="4" Grid.Column="0" Text="Переведены в другие стационары"/>
                     <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding TransferredToAnotherHospitals}"/>
                     <StackPanel Grid.Row="4" Grid.Column="2">
-                        <Button>
+                        <Button Command="{Binding ChangePatientGroupCommand}" CommandParameter="TransferredToAnotherHospitals">
                             <Button.Background>
                                 <SolidColorBrush Opacity="0"/>
                             </Button.Background>
@@ -246,7 +246,7 @@
                     <TextBlock Grid.Row="5" Grid.Column="0" Text="Умершие"/>
                     <TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding DeceasedPatients}"/>
                     <StackPanel Grid.Row="5" Grid.Column="2">
-                        <Button>
+                        <Button Command="{Binding ChangePatientGroupCommand}" CommandParameter="DeceasedPatients">
                             <Button.Background>
                                 <SolidColorBrush Opacity="0"/>
                             </Button.Background>
@@ -263,7 +263,7 @@
                     <TextBlock Grid.Row="6" Grid.Column="0" Text="Во временном отпуске"/>
                     <TextBlock Grid.Row="6" Grid.Column="1" Text="{Binding PatientsOnTemporaryLeave}"/>
                     <StackPanel Grid.Row="6" Grid.Column="2">
-                        <Button>
+                        <Button Command="{Binding ChangePatientGroupCommand}" CommandParameter="PatientsOnTemporaryLeave">
                             <Button.Background>
                                 <SolidColorBrush Opacity="0"/>
                             </Button.Background>
