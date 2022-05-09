@@ -1,4 +1,5 @@
 ﻿using MedicalDocument.Infrastructure.Commands;
+using MedicalDocument.Models.DTO;
 using MedicalDocument.Models.Entities;
 using MedicalDocument.ViewModels.Base;
 using System;
@@ -8,11 +9,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Reflection;
 
 namespace MedicalDocument.ViewModels
 {
     public class DetailsWindowViewModel : ClosableViewModel
     {
+        private DetailsWindowDto _dto;
+        public DetailsWindowViewModel(DetailsWindowDto dto) : this()
+        {
+            _dto = dto;
+            UpdateViewModelProperties();
+        }
         public DetailsWindowViewModel()
         {
             SaveChangesCommand = new LambdaCommand(OnSaveChangesCommandExecuted,
@@ -64,7 +72,17 @@ namespace MedicalDocument.ViewModels
         public int TransferredToTheDailyHospitalCount { get => _transferredToTheDailyHospitalCount; set => Set(ref _transferredToTheDailyHospitalCount, value); }
 
         private int _allDischargededPatientsCount = 0;
-        public int AllDischargededPatientsCount { get => _allDischargededPatientsCount; set => Set(ref _allDischargededPatientsCount, value); }
+        public int AllDischargededPatientsCount 
+        { 
+            get => _allDischargededPatientsCount;
+            set
+            {
+                int sum = TransferredToAnotherHospitalsCount 
+                    + TransferredToTheHospitalCount 
+                    + TransferredToTheDailyHospitalCount;
+                Set(ref _allDischargededPatientsCount, sum);
+            }
+        }
 
         #endregion
 
@@ -104,7 +122,16 @@ namespace MedicalDocument.ViewModels
         public ICommand SaveChangesCommand { get; }
         private void OnSaveChangesCommandExecuted(object p)
         {
-
+            try
+            {
+                Status = "";
+                UpdateDtoProperties();
+                OnCloseWindow(new CloseWindowEventArgs(true));
+            }
+            catch (Exception ex)
+            {
+                Status = ex.Message;
+            }
         }
         private bool CanSaveChangesCommandExecute(object p)
         {
@@ -134,5 +161,34 @@ namespace MedicalDocument.ViewModels
 
         #endregion
 
+
+        // Так делать, кончено, нельзя, но кто об этом узнает...)
+        // Черная магия рефлексии...
+        private void UpdateViewModelProperties()
+        {
+            IEnumerable<PropertyInfo> viewModelProperties = GetType().GetRuntimeProperties();
+            IEnumerable<PropertyInfo> dtoProperties = _dto.GetType().GetRuntimeProperties();
+            foreach (PropertyInfo vmProperty in viewModelProperties)
+            {
+                foreach (PropertyInfo dtoProperty in dtoProperties)
+                {
+                    if (vmProperty.Name == vmProperty.Name)
+                        vmProperty.SetValue(this, dtoProperty.GetValue(_dto));
+                }
+            }
+        }
+        private void UpdateDtoProperties()
+        {
+            IEnumerable<PropertyInfo> viewModelProperties = GetType().GetRuntimeProperties();
+            IEnumerable<PropertyInfo> dtoProperties = _dto.GetType().GetRuntimeProperties();
+            foreach (PropertyInfo vmProperty in viewModelProperties)
+            {
+                foreach (PropertyInfo dtoProperty in dtoProperties)
+                {
+                    if (vmProperty.Name == vmProperty.Name)
+                        dtoProperty.SetValue(_dto, vmProperty.GetValue(this));
+                }
+            }
+        }
     }
 }

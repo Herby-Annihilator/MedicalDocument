@@ -18,9 +18,13 @@ namespace MedicalDocument.Models.Services
             var data = new SpecialGroupWindowViewModel(editData);
             var window = new AdmittedPatientsWindow();
             window.DataContext = data;
+            window.DataContext = data;
+            window.Owner = App.Current.MainWindow;
+            window.WindowStartupLocation = System.Windows.WindowStartupLocation.CenterOwner;
             data.CloseWindow += (_, e) =>
             {
                 window.DialogResult = e.DialogResult;
+                window.Close();
             };
             return window.ShowDialog() ?? false;
         }

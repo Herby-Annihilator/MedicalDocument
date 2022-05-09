@@ -8,10 +8,10 @@ namespace MedicalDocument.ViewModels
     public static class ViewModelsRegistrator
     {
         public static IServiceCollection AddViewModels(this IServiceCollection services) => services
+           .AddTransient<AdmittedPatientsWindowViewModel>()
+           .AddTransient<DetailsWindowViewModel>()
+           .AddTransient<SpecialGroupWindowViewModel>()
            .AddSingleton<MainWindowViewModel>()
-            .AddTransient<AdmittedPatientsWindowViewModel>()
-            .AddTransient<DetailsWindowViewModel>()
-            .AddTransient<SpecialGroupWindowViewModel>()
         ;
     }
 }

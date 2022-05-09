@@ -8,7 +8,13 @@ namespace MedicalDocument.Models.Entities
 {
     public class MedicalProfile
     {
-        public Guid Id { get; set; } = Guid.NewGuid();
+        public int Id { get; set; }
         public string Name { get; set; } = "";
+
+        public MedicalProfile(int id, string name)
+        {
+            Id = id;
+            Name = name;
+        }
     }
 }

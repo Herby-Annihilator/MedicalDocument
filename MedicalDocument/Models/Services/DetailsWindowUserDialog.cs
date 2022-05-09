@@ -10,12 +10,13 @@ using System.Threading.Tasks;
 
 namespace MedicalDocument.Models.Services
 {
-    public class AdmittedPatientsWindowUserDialog : IUserDialog<AdmittedPatientsWindowDto>
+    public class DetailsWindowUserDialog : IUserDialog<DetailsWindowDto>
     {
-        public bool Edit(AdmittedPatientsWindowDto editData)
+        public bool Edit(DetailsWindowDto editData)
         {
-            var data = new AdmittedPatientsWindowViewModel(editData);
-            var window = new AdmittedPatientsWindow();
+            var data = new DetailsWindowViewModel(editData);
+            var window = new DetailsWindow();
+            window.DataContext = data;
             window.DataContext = data;
             window.Owner = App.Current.MainWindow;
             window.WindowStartupLocation = System.Windows.WindowStartupLocation.CenterOwner;

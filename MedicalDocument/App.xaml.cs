@@ -21,7 +21,7 @@ namespace MedicalDocument
 
         public static Window ActivedWindow => Current.Windows.Cast<Window>().FirstOrDefault(w => w.IsActive);
 
-        private static IHost _host;
+        private static IHost _host = null;
 
         public static IHost Host => _host ??= Program.CreateHostBuilder(Environment.GetCommandLineArgs()).Build();
 

@@ -209,7 +209,7 @@
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Row="0" Grid.Column="0" Text="Состоит больных"/>
-                        <TextBlock Grid.Row="1" Grid.Column="0" Text="Состоит матерей при больнных детях"/>
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="Состоит матерей при больных детях"/>
                         <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding CountOfPatientsOnTheStartOfTheCurrentDay, UpdateSourceTrigger=PropertyChanged, Converter={cnv:IntToStringConverter}}"/>
                         <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding CountOfMothersWithSickChildren, UpdateSourceTrigger=PropertyChanged, Converter={cnv:IntToStringConverter}}"/>
                     </Grid>
