@@ -21,13 +21,23 @@ namespace MedicalDocument.ViewModels
         public MainWindowViewModel()
         {
             InitDtosDictionary();
+            UpdatePatientsCountInDifferentGroups();
+            _admittedPatientsDto = new AdmittedPatientsWindowDto();
+            UpdateAdmittedPatientsProperties();
             ChangePatientGroupCommand = new LambdaCommand(OnChangePatientGroupCommandExecuted,
                 CanChangePatientGroupCommandExecute);
+            ClearPatientsGroupsCommand = new LambdaCommand(OnClearPatientsGroupsCommandExecuted,
+                CanClearPatientsGroupsCommandExecute);
+            ChangeAdmittedPatientGroupCommand = new LambdaCommand(OnChangeAdmittedPatientGroupCommandExecuted,
+                CanChangeAdmittedPatientGroupCommandExecute);
+            ClearAdmittedPatientsGroupsCommand = new LambdaCommand(OnClearAdmittedPatientsGroupsCommandExecuted,
+                CanClearAdmittedPatientsGroupsCommandExecute);
         }
 
         #region Properties
 
         private Dictionary<string, SpecialGroupWindowDto> _dtos;
+        private AdmittedPatientsWindowDto _admittedPatientsDto;
 
         private string _title = "Title";
         public string Title { get => _title; set => Set(ref _title, value); }
@@ -122,8 +132,12 @@ namespace MedicalDocument.ViewModels
                 {
                     IUserDialog<SpecialGroupWindowDto> dialog 
                         = App.Services.GetRequiredService<SpecialGroupWindowUserDialog>();
-                    dialog.Edit(_dtos[key]);
-                    UpdatePatientsCountInDifferentGroups();
+                    bool result = dialog.Edit(_dtos[key]);
+                    if (result)
+                    {
+                        UpdatePatientsCountInDifferentGroups();  // TODO: написать такой метод, но для одного свойства
+                        Status = "Группа изменена";
+                    }
                 }
                 else
                     throw new ArgumentException($"Тип параметра команды должен быть string," +
@@ -135,6 +149,80 @@ namespace MedicalDocument.ViewModels
             }
         }
         private bool CanChangePatientGroupCommandExecute(object p) => true;
+
+        #endregion
+
+        #region ClearPatientsGroupsCommand
+
+        public ICommand ClearPatientsGroupsCommand { get; }
+        private void OnClearPatientsGroupsCommandExecuted(object p)
+        {
+            try
+            {
+                Status = "";
+                if (p is string key)
+                {
+                    _dtos[key].Patients.Clear();
+                    UpdatePatientsCountInDifferentGroups();  // TODO: написать такой метод, но для одного свойства
+                    Status = "Группа очищена";
+                }
+                else
+                    throw new ArgumentException($"Тип параметра команды должен быть string," +
+                        $" но получено {p.GetType()}");
+            }
+            catch (Exception ex)
+            {
+                Status = ex.Message;
+            }
+        }
+        private bool CanClearPatientsGroupsCommandExecute(object p) => true;
+
+        #endregion
+
+        #region ChangeAdmittedPatientGroupCommand
+
+        public ICommand ChangeAdmittedPatientGroupCommand { get; }
+        private void OnChangeAdmittedPatientGroupCommandExecuted(object p)
+        {
+            try
+            {
+                Status = "";
+                IUserDialog<AdmittedPatientsWindowDto> dialog
+                    = App.Services.GetRequiredService<AdmittedPatientsWindowUserDialog>();
+                bool result = dialog.Edit(_admittedPatientsDto);
+                if (result)
+                {
+                    UpdateAdmittedPatientsProperties();
+                    Status = "Группа изменена";
+                }
+            }
+            catch (Exception ex)
+            {
+                Status = ex.Message;
+            }
+        }
+        private bool CanChangeAdmittedPatientGroupCommandExecute(object p) => true;
+
+        #endregion
+
+        #region ClearAdmittedPatientsGroupsCommand
+
+        public ICommand ClearAdmittedPatientsGroupsCommand { get; }
+        private void OnClearAdmittedPatientsGroupsCommandExecuted(object p)
+        {
+            try
+            {
+                _admittedPatientsDto.PatientTransferredFromHospital.Clear();
+                UpdateAdmittedPatientsProperties(); 
+                Status = "Группа очищена";
+            }
+            catch (Exception ex)
+            {
+                Status = ex.Message;
+            }
+        }
+        private bool CanClearAdmittedPatientsGroupsCommandExecute(object p) => _admittedPatientsDto.Count > 0
+            || _admittedPatientsDto.CountOfPatientsFromHospital > 0;
 
         #endregion
 
@@ -163,6 +251,12 @@ namespace MedicalDocument.ViewModels
                         property.SetValue(this, _dtos[key].Count);
                 }   
             }           
+        }
+
+        private void UpdateAdmittedPatientsProperties()
+        {
+            AdmittedPatientsCount = _admittedPatientsDto.Count;
+            AdmittedFromHospitalPatientsCount = _admittedPatientsDto.CountOfPatientsFromHospital;
         }
         #endregion
     }

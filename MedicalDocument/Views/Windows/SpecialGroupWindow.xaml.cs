@@ -17,9 +17,9 @@ namespace MedicalDocument.Views.Windows
     /// <summary>
     /// Логика взаимодействия для SpecialGroupWindow.xaml
     /// </summary>
-    public partial class SpecialGroupWindow : Window
+    public partial class AdmittedPatientsWindow : Window
     {
-        public SpecialGroupWindow()
+        public AdmittedPatientsWindow()
         {
             InitializeComponent();
         }

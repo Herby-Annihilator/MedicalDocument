@@ -178,13 +178,13 @@
                         <TextBlock Text="{Binding AdmittedFromHospitalPatientsCount}"/>
                     </StackPanel>
                     <StackPanel Grid.Row="1" Grid.Column="2">
-                        <Button>
+                        <Button Command="{Binding ChangeAdmittedPatientGroupCommand}">
                             <Button.Background>
                                 <SolidColorBrush Opacity="0"/>
                             </Button.Background>
                             <fa1:ImageAwesome Height="32" Width="32" Icon="Solid_PencilAlt"/>
                         </Button>
-                        <Button>
+                        <Button Command="{Binding ClearAdmittedPatientsGroupsCommand}">
                             <Button.Background>
                                 <SolidColorBrush Opacity="0"/>
                             </Button.Background>
@@ -201,7 +201,7 @@
                             </Button.Background>
                             <fa1:ImageAwesome Height="32" Width="32" Icon="Solid_PencilAlt"/>
                         </Button>
-                        <Button>
+                        <Button Command="{Binding ClearPatientsGroupsCommand}" CommandParameter="DischargedPatientsCount">
                             <Button.Background>
                                 <SolidColorBrush Opacity="0"/>
                             </Button.Background>
@@ -218,7 +218,7 @@
                             </Button.Background>
                             <fa1:ImageAwesome Height="32" Width="32" Icon="Solid_PencilAlt"/>
                         </Button>
-                        <Button>
+                        <Button Command="{Binding ClearPatientsGroupsCommand}" CommandParameter="TransferredToAnotherDepartments">
                             <Button.Background>
                                 <SolidColorBrush Opacity="0"/>
                             </Button.Background>
@@ -235,7 +235,7 @@
                             </Button.Background>
                             <fa1:ImageAwesome Height="32" Width="32" Icon="Solid_PencilAlt"/>
                         </Button>
-                        <Button>
+                        <Button Command="{Binding ClearPatientsGroupsCommand}" CommandParameter="TransferredToAnotherHospitals">
                             <Button.Background>
                                 <SolidColorBrush Opacity="0"/>
                             </Button.Background>
@@ -252,7 +252,7 @@
                             </Button.Background>
                             <fa1:ImageAwesome Height="32" Width="32" Icon="Solid_PencilAlt"/>
                         </Button>
-                        <Button>
+                        <Button Command="{Binding ClearPatientsGroupsCommand}" CommandParameter="DeceasedPatients">
                             <Button.Background>
                                 <SolidColorBrush Opacity="0"/>
                             </Button.Background>
@@ -269,7 +269,7 @@
                             </Button.Background>
                             <fa1:ImageAwesome Height="32" Width="32" Icon="Solid_PencilAlt"/>
                         </Button>
-                        <Button>
+                        <Button Command="{Binding ClearPatientsGroupsCommand}" CommandParameter="PatientsOnTemporaryLeave">
                             <Button.Background>
                                 <SolidColorBrush Opacity="0"/>
                             </Button.Background>

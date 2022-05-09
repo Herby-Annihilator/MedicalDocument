@@ -2,7 +2,6 @@
 using MedicalDocument.Models.Services.Interfaces;
 using MedicalDocument.ViewModels;
 using MedicalDocument.Views.Windows;
-using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace MedicalDocument.Models.Services
 {
-    public class SpecialGroupWindowUserDialog : IUserDialog<SpecialGroupWindowDto>
+    public class AdmittedPatientsWindowUserDialog : IUserDialog<AdmittedPatientsWindowDto>
     {
-        public bool Edit(SpecialGroupWindowDto editData)
+        public bool Edit(AdmittedPatientsWindowDto editData)
         {
-            var data = new SpecialGroupWindowViewModel(editData);
+            var data = new AdmittedPatientsWindowViewModel(editData);
             var window = new AdmittedPatientsWindow();
             window.DataContext = data;
             data.CloseWindow += (_, e) =>
