@@ -20,6 +20,16 @@ namespace MedicalDocument.ViewModels
         {
             _dto = dto;
             UpdateViewModelProperties();
+            // TODO: исправить этот ужас.
+            List<BedProfile> profiles = new List<BedProfile>();
+            profiles.Add(new BedProfile(1, "Терапевтический"));
+            profiles.Add(new BedProfile(2, "Хирургический"));
+            profiles.Add(new BedProfile(3, "Венерологический"));
+            profiles.Add(new BedProfile(4, "Кардиологический"));
+            profiles.Add(new BedProfile(5, "Инфекционный"));
+            profiles.Add(new BedProfile(6, "Неврологический"));
+            profiles.Add(new BedProfile(7, "Нейрохирургический"));
+            MedicalProfiles = new ObservableCollection<BedProfile>(profiles);
         }
         public DetailsWindowViewModel()
         {
@@ -63,13 +73,37 @@ namespace MedicalDocument.ViewModels
 
         #region DischargedPatients
         private int _transferredToAnotherHospitalsCount = 0;
-        public int TransferredToAnotherHospitalsCount { get => _transferredToAnotherHospitalsCount; set => Set(ref _transferredToAnotherHospitalsCount, value); }
+        public int TransferredToAnotherHospitalsCount 
+        {
+            get => _transferredToAnotherHospitalsCount; 
+            set
+            {
+                Set(ref _transferredToAnotherHospitalsCount, value);
+                AllDischargededPatientsCount = 0;  // триггернуть свойство
+            }
+        }
 
         private int _transferredToTheHospitalCount = 0;
-        public int TransferredToTheHospitalCount { get => _transferredToTheHospitalCount; set => Set(ref _transferredToTheHospitalCount, value); }
+        public int TransferredToTheHospitalCount 
+        {
+            get => _transferredToTheHospitalCount; 
+            set
+            {
+                Set(ref _transferredToTheHospitalCount, value);
+                AllDischargededPatientsCount = 0;  // триггернуть свойство
+            }
+        }
 
         private int _transferredToTheDailyHospitalCount = 0;
-        public int TransferredToTheDailyHospitalCount { get => _transferredToTheDailyHospitalCount; set => Set(ref _transferredToTheDailyHospitalCount, value); }
+        public int TransferredToTheDailyHospitalCount 
+        {
+            get => _transferredToTheDailyHospitalCount; 
+            set
+            {
+                Set(ref _transferredToTheDailyHospitalCount, value);
+                AllDischargededPatientsCount = 0;  // триггернуть свойство
+            }
+        }
 
         private int _allDischargededPatientsCount = 0;
         public int AllDischargededPatientsCount 
@@ -172,7 +206,7 @@ namespace MedicalDocument.ViewModels
             {
                 foreach (PropertyInfo dtoProperty in dtoProperties)
                 {
-                    if (vmProperty.Name == vmProperty.Name)
+                    if (vmProperty.Name == dtoProperty.Name)
                         vmProperty.SetValue(this, dtoProperty.GetValue(_dto));
                 }
             }
@@ -185,7 +219,7 @@ namespace MedicalDocument.ViewModels
             {
                 foreach (PropertyInfo dtoProperty in dtoProperties)
                 {
-                    if (vmProperty.Name == vmProperty.Name)
+                    if (vmProperty.Name == dtoProperty.Name)
                         dtoProperty.SetValue(_dto, vmProperty.GetValue(this));
                 }
             }

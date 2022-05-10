@@ -35,7 +35,10 @@ namespace MedicalDocument.ViewModels
                 CanClearAdmittedPatientsGroupsCommandExecute);
             AddBedToTableCommand = new LambdaCommand(OnAddBedToTableCommandExecuted, CanAddBedToTableCommandExecute);
             SaveChangesCommand = new LambdaCommand(OnSaveChangesCommandExecuted, CanSaveChangesCommandExecute);
-
+            RemoveSelectedBedFromTableCommand = new LambdaCommand(OnRemoveSelectedBedFromTableCommandExecuted,
+                CanRemoveSelectedBedFromTableCommandExecute);
+            ChangeSelectedBedCommand = new LambdaCommand(OnChangeSelectedBedCommandExecuted,
+                CanChangeSelectedBedCommandExecute);
             GenerateEmployees();
         }
 
@@ -248,6 +251,56 @@ namespace MedicalDocument.ViewModels
             }
         }
         private bool CanAddBedToTableCommandExecute(object p) => true;
+
+        #endregion
+
+        #region RemoveSelectedBedFromTableCommand
+
+        public ICommand RemoveSelectedBedFromTableCommand { get; }
+        private void OnRemoveSelectedBedFromTableCommandExecuted(object p)
+        {
+            try
+            {
+                Status = "";
+                BedsTableRows.Remove(SelectedBedsTableRow);
+                Status = "Профиль коек удален";
+            }
+            catch (Exception ex)
+            {
+                Status = ex.Message;
+            }
+        }
+        private bool CanRemoveSelectedBedFromTableCommandExecute(object p) => SelectedBedsTableRow != null;
+
+        #endregion
+
+        #region ChangeSelectedBedCommand
+
+        public ICommand ChangeSelectedBedCommand { get; }
+        private void OnChangeSelectedBedCommandExecuted(object p)
+        {
+            try
+            {
+                Status = "";
+                IUserDialog<DetailsWindowDto> userDialog = App.Services.GetRequiredService<DetailsWindowUserDialog>();
+                if (SelectedBedsTableRow.DetailsWindowDto == null)
+                    SelectedBedsTableRow.DetailsWindowDto = new DetailsWindowDto() 
+                    { 
+                        SelectedProfile = SelectedBedsTableRow.SelectedProfile,     
+                    };
+                if (userDialog.Edit(SelectedBedsTableRow.DetailsWindowDto))
+                {
+                    Status = "Данные изменены";
+                }
+                else
+                    Status = "Отказ от изменений";
+            }
+            catch (Exception ex)
+            {
+                Status = ex.Message;
+            }
+        }
+        private bool CanChangeSelectedBedCommandExecute(object p) => SelectedBedsTableRow != null;
 
         #endregion
 

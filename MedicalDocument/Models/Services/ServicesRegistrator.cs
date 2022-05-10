@@ -12,6 +12,7 @@ namespace MedicalDocument.Models.Services
         public static IServiceCollection AddServices(this IServiceCollection services) => services
             .AddTransient<SpecialGroupWindowUserDialog>()
             .AddTransient<AdmittedPatientsWindowUserDialog>()
+            .AddTransient<DetailsWindowUserDialog>()
             .AddTransient<IExelExporter, ExelExporter>()
         // Register your services here
         ;

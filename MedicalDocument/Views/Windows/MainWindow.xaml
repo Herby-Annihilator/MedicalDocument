@@ -102,13 +102,13 @@
                             </Button.Background>
                             <fa1:ImageAwesome Height="32" Width="32" Icon="Solid_Plus" Foreground="Black"/>
                         </Button>
-                        <Button Margin="0, 5">
+                        <Button Margin="0, 5" Command="{Binding ChangeSelectedBedCommand}">
                             <Button.Background>
                                 <SolidColorBrush Opacity="0"/>
                             </Button.Background>
                             <fa1:ImageAwesome Height="32" Width="32" Icon="Solid_PencilAlt"/>
                         </Button>
-                        <Button>
+                        <Button Command="{Binding RemoveSelectedBedFromTableCommand}">
                             <Button.Background>
                                 <SolidColorBrush Opacity="0"/>
                             </Button.Background>

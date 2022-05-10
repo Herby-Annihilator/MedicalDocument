@@ -62,7 +62,12 @@
 
                 <TextBlock Grid.Row="0" Grid.Column="2" Text="Профиль коек" HorizontalAlignment="Right" Margin="17,5,0,5"/>
                 <ComboBox Grid.Row="0" Grid.Column="3" MinWidth="200" Margin="0,5,0,5" Width="200" HorizontalAlignment="Center" 
-                          ItemsSource="{Binding MedicalProfiles}" SelectedItem="{Binding SelectedProfile}"
+                          ItemsSource="{Binding MedicalProfiles}" 
+                          SelectedItem="{Binding SelectedProfile, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                          IsEditable="True"
+                          IsTextSearchEnabled="True"
+                          DisplayMemberPath="Name"
+                          Text="{Binding SelectedProfile.Name}"
                           VerticalAlignment="Center"/>
 
                 <TextBlock Grid.Row="1" Grid.Column="2" Text="Код" HorizontalAlignment="Right" Margin="54,5,0,5"/>
@@ -147,7 +152,7 @@
                             </GroupBox>
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="1">
                                 <TextBlock Text="Всего"/>
-                                <TextBox Text="{Binding AllDischargededPatientsCount, Converter={cnv:IntToStringConverter}}" IsReadOnly="True"/>
+                                <TextBox Text="{Binding AllDischargededPatientsCount, Converter={cnv:IntToStringConverter}, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>
                             </StackPanel>
                         </Grid>
                     </GroupBox>

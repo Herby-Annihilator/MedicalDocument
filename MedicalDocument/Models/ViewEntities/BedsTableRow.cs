@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using MedicalDocument.Models.DTO;
 using MedicalDocument.Models.Entities;
 
 namespace MedicalDocument.Models.ViewEntities
@@ -19,7 +20,7 @@ namespace MedicalDocument.Models.ViewEntities
             {
                 if (Equals(value, _profile)) return;
                 _profile = value;
-                Code = _profile.Id;
+                Code = _profile == null ? 0 : _profile.Id;
                 OnPropertyChanged();
             }
         }
@@ -35,6 +36,8 @@ namespace MedicalDocument.Models.ViewEntities
                 OnPropertyChanged();
             }
         }
+
+        public DetailsWindowDto DetailsWindowDto { get; set; }
 
         public BedsTableRow()
         {
