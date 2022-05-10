@@ -39,8 +39,8 @@ namespace MedicalDocument.ViewModels
         private int _bedsOnRepair = 0;
         public int BedsOnRepair { get => _bedsOnRepair; set => Set(ref _bedsOnRepair, value); }
 
-        public ObservableCollection<MedicalProfile> MedicalProfiles { get; }
-        public MedicalProfile SelectedProfile { get; set; }
+        public ObservableCollection<BedProfile> MedicalProfiles { get; }
+        public BedProfile SelectedProfile { get; set; }
 
         #region AdmittedPatients
 

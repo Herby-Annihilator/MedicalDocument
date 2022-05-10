@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MedicalDocument"
         xmlns:fa1="http://schemas.fontawesome.com/icons/"
+        xmlns:cnv="clr-namespace:MedicalDocument.Infrastructure.Converters"
         mc:Ignorable="d"
         Title="{Binding Title}" Height="640" Width="1024"
         FontSize="14"
@@ -84,7 +85,7 @@
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" HorizontalAlignment="Right">
                     <Button Content="Экспорт" Width="150" VerticalAlignment="Bottom" Margin="10, 0"/>
-                    <Button Content="Сохранить" Width="150" VerticalAlignment="Bottom"/>
+                    <Button Content="Сохранить" Width="150" VerticalAlignment="Bottom" Command="{Binding SaveChangesCommand}"/>
                 </StackPanel>
             </DockPanel>
             <Grid Margin="5">
@@ -95,7 +96,7 @@
                 <DockPanel Grid.Column="0">
                     <TextBlock DockPanel.Dock="Top" Text="Движение больных по койкам"/>
                     <StackPanel DockPanel.Dock="Right" Margin="3, 0, 15, 0">
-                        <Button>
+                        <Button Command="{Binding AddBedToTableCommand}">
                             <Button.Background>
                                 <SolidColorBrush Opacity="0"/>
                             </Button.Background>
@@ -114,15 +115,36 @@
                             <fa1:ImageAwesome Height="32" Width="32" Icon="Solid_Trash"/>
                         </Button>
                     </StackPanel>
-                    <DataGrid ItemsSource="{Binding Beds}"
-                              SelectedItem="{Binding SelectedBed}"
+                    <DataGrid ItemsSource="{Binding BedsTableRows}"
+                              SelectedItem="{Binding SelectedBedsTableRow}"
                               AutoGenerateColumns="False"
                               CanUserAddRows="False"
                               CanUserDeleteRows="False"
                               CanUserSortColumns="False">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Наименование" Width="3*" Binding="{Binding Profile.Name}"/>
-                            <DataGridTextColumn Header="Код" Width="*" Binding="{Binding Id}"/>
+                            <DataGridTemplateColumn Width="3*" Header="Наименование">
+                                <DataGridTemplateColumn.CellEditingTemplate>
+                                    <DataTemplate>
+                                        <ComboBox ItemsSource="{Binding Profiles}"
+                                            SelectedItem="{Binding SelectedProfile, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                            IsTextSearchEnabled="True"
+                                            IsEditable="True"
+                                            DisplayMemberPath="Name">
+                                        </ComboBox>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellEditingTemplate>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <ComboBox ItemsSource="{Binding Profiles}"
+                                            SelectedItem="{Binding SelectedProfile, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                            IsTextSearchEnabled="True"
+                                            IsEditable="True"
+                                            DisplayMemberPath="Name">
+                                        </ComboBox>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTextColumn Header="Код" Width="*" Binding="{Binding SelectedProfile.Id}" IsReadOnly="True"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </DockPanel>

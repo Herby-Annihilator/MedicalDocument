@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Markup;
 using System.Reflection;
 using MedicalDocument.Infrastructure.Commands;
+using MedicalDocument.Models.ViewEntities;
 
 namespace MedicalDocument.ViewModels
 {
@@ -32,6 +33,8 @@ namespace MedicalDocument.ViewModels
                 CanChangeAdmittedPatientGroupCommandExecute);
             ClearAdmittedPatientsGroupsCommand = new LambdaCommand(OnClearAdmittedPatientsGroupsCommandExecuted,
                 CanClearAdmittedPatientsGroupsCommandExecute);
+            AddBedToTableCommand = new LambdaCommand(OnAddBedToTableCommandExecuted, CanAddBedToTableCommandExecute);
+            SaveChangesCommand = new LambdaCommand(OnSaveChangesCommandExecuted, CanSaveChangesCommandExecute);
 
             GenerateEmployees();
         }
@@ -107,15 +110,15 @@ namespace MedicalDocument.ViewModels
         public ObservableCollection<Patient> Patients { get; private set; } = new ObservableCollection<Patient>();
 
 
-        public ObservableCollection<Bed> Beds { get; private set; } = new ObservableCollection<Bed>();
-        private Bed _selectedBed;
-        public Bed SelectedBed { get => _selectedBed; set => Set(ref _selectedBed, value); }
+        public ObservableCollection<BedsTableRow> BedsTableRows { get; private set; } = new ObservableCollection<BedsTableRow>();
+        private BedsTableRow _selectedBedsTableRow;
+        public BedsTableRow SelectedBedsTableRow { get => _selectedBedsTableRow; set => Set(ref _selectedBedsTableRow, value); }
 
-        public ObservableCollection<MedicalProfile> MedicalProfiles { get; private set; } 
-            = new ObservableCollection<MedicalProfile>();
+        public ObservableCollection<BedProfile> MedicalProfiles { get; private set; } 
+            = new ObservableCollection<BedProfile>();
 
-        private MedicalProfile _selectedMedicalProfile;
-        public MedicalProfile SelectedMedicalProfile { get => _selectedMedicalProfile; 
+        private BedProfile _selectedMedicalProfile;
+        public BedProfile SelectedMedicalProfile { get => _selectedMedicalProfile; 
             set => Set(ref _selectedMedicalProfile, value); }
 
         #endregion
@@ -228,6 +231,46 @@ namespace MedicalDocument.ViewModels
 
         #endregion
 
+        #region AddBedToTableCommand
+
+        public ICommand AddBedToTableCommand { get; }
+        private void OnAddBedToTableCommandExecuted(object p)
+        {
+            try
+            {
+                Status = "";
+                BedsTableRows.Add(new BedsTableRow());
+                Status = "Профиль коек добавлен";
+            }
+            catch (Exception ex)
+            {
+                Status = ex.Message;
+            }
+        }
+        private bool CanAddBedToTableCommandExecute(object p) => true;
+
+        #endregion
+
+        #region SaveChangesCommand
+
+        public ICommand SaveChangesCommand { get; }
+        private void OnSaveChangesCommandExecuted(object p)
+        {
+            try
+            {
+                Status = "";
+                BedsTableRows.Add(new BedsTableRow());
+                Status = "Профиль коек добавлен";
+            }
+            catch (Exception ex)
+            {
+                Status = ex.Message;
+            }
+        }
+        private bool CanSaveChangesCommandExecute(object p) => SelectedEmployee != null;
+
+        #endregion
+
         #endregion
 
         #region Methods
@@ -271,6 +314,7 @@ namespace MedicalDocument.ViewModels
                     Patronymic = $"Отчество {i + 1}" });
             }
         }
+
         #endregion
     }
 }

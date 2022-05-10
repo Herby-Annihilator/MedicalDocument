@@ -9,9 +9,9 @@ namespace MedicalDocument.Models.Entities
     public class Bed
     {
         public int Id { get; set; }
-        public MedicalProfile Profile { get; set; }
+        public BedProfile Profile { get; set; }
 
-        public Bed(int id, MedicalProfile profile)
+        public Bed(int id, BedProfile profile)
         {
             Id = id;
             Profile = profile;

@@ -13,7 +13,7 @@ namespace MedicalDocument.Models.DTO
 
         public int BedsOnRepair { get; set; }
 
-        public MedicalProfile SelectedProfile { get; set; }
+        public BedProfile SelectedProfile { get; set; }
 
         #region AdmittedPatients
 

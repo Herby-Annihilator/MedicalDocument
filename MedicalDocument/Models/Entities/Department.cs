@@ -11,7 +11,7 @@ namespace MedicalDocument.Models.Entities
         public Guid Id { get; set; } = Guid.NewGuid();
         public string Name { get; set; } = "";
         public int Number { get; set; } = 0;
-        public MedicalProfile GeneralProfile { get; set; }
+        public BedProfile GeneralProfile { get; set; }
         public List<Bed> Beds { get; set; } = new List<Bed>();
     }
 }

@@ -6,15 +6,17 @@ using System.Threading.Tasks;
 
 namespace MedicalDocument.Models.Entities
 {
-    public class MedicalProfile
+    public class BedProfile
     {
         public int Id { get; set; }
         public string Name { get; set; } = "";
 
-        public MedicalProfile(int id, string name)
+        public BedProfile(int id, string name)
         {
             Id = id;
             Name = name;
         }
+
+        public override string ToString() => Name;
     }
 }
