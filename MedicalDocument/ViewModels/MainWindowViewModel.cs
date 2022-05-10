@@ -39,7 +39,9 @@ namespace MedicalDocument.ViewModels
                 CanRemoveSelectedBedFromTableCommandExecute);
             ChangeSelectedBedCommand = new LambdaCommand(OnChangeSelectedBedCommandExecuted,
                 CanChangeSelectedBedCommandExecute);
+            
             GenerateEmployees();
+            FillBedsProfiles();
         }
 
         #region Properties
@@ -109,16 +111,15 @@ namespace MedicalDocument.ViewModels
         private Employee _selectedEmplyee;
         public Employee SelectedEmployee { get => _selectedEmplyee; set => Set(ref _selectedEmplyee, value); }
 
-
-        public ObservableCollection<Patient> Patients { get; private set; } = new ObservableCollection<Patient>();
-
-
         public ObservableCollection<BedsTableRow> BedsTableRows { get; private set; } = new ObservableCollection<BedsTableRow>();
         private BedsTableRow _selectedBedsTableRow;
         public BedsTableRow SelectedBedsTableRow { get => _selectedBedsTableRow; set => Set(ref _selectedBedsTableRow, value); }
 
-        public ObservableCollection<BedProfile> MedicalProfiles { get; private set; } 
-            = new ObservableCollection<BedProfile>();
+        public ObservableCollection<BedProfile> MedicalProfiles { get; private set; }
+
+        //private BedProfile _selectedGeneralBedProfile;
+        //public BedProfile SelectedGeneralBedProfile { get => _selectedGeneralBedProfile;
+        //    set => Set(ref _selectedGeneralBedProfile, value); }
 
         private BedProfile _selectedMedicalProfile;
         public BedProfile SelectedMedicalProfile { get => _selectedMedicalProfile; 
@@ -368,6 +369,19 @@ namespace MedicalDocument.ViewModels
             }
         }
 
+        private void FillBedsProfiles()
+        {
+            List<BedProfile> profiles = new List<BedProfile>();
+            // TODO: убрать этот ужас
+            profiles.Add(new BedProfile(1, "Терапевтический"));
+            profiles.Add(new BedProfile(2, "Хирургический"));
+            profiles.Add(new BedProfile(3, "Венерологический"));
+            profiles.Add(new BedProfile(4, "Кардиологический"));
+            profiles.Add(new BedProfile(5, "Инфекционный"));
+            profiles.Add(new BedProfile(6, "Неврологический"));
+            profiles.Add(new BedProfile(7, "Нейрохирургический"));
+            MedicalProfiles = new ObservableCollection<BedProfile>(profiles);
+        }
         #endregion
     }
 }

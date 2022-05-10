@@ -1,4 +1,5 @@
-﻿using MedicalDocument.Models.Services.Interfaces;
+﻿using MedicalDocument.Models.Reports;
+using MedicalDocument.Models.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,14 @@ namespace MedicalDocument.Models.Services
     {
         public void Export(object report)
         {
-            throw new NotImplementedException();
+            if (report == null)
+                throw new ArgumentNullException(nameof(report));
+            if (report is RecordSheet recordSheet)
+            {
+
+            }
+            else
+                throw new ArgumentException($"Ожидался '{typeof(RecordSheet)}', но получено '{report.GetType()}'");
         }
     }
 }
